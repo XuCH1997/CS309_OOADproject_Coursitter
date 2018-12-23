@@ -7,7 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6 (project1)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 2.7 (CS309_OOADproject_Coursitter)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

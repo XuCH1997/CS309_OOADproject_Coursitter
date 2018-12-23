@@ -37,7 +37,10 @@ def change_password(username, password_old, password_new):
         res = {'state': 1, 'message': 'password changed'}
     else:
         res = {'state': 0, 'message': 'old password is not correct'}
+    a.close()
     return jsonify(res)
+
+
 
 
 if __name__ == '__main__':
