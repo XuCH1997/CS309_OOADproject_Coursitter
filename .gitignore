@@ -2,3 +2,7 @@
 dbST.py
 std.py
 venv
+.idea/fdas.iml
+.idea/misc.xml
+.idea/workspace.xml
+__pycache__/db.cpython-36.pyc
