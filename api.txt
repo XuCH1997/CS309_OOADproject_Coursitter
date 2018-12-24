@@ -26,7 +26,7 @@ api 1.0
 
 2 选课界面
     2.1 学生查看当前所有可选课程
-        URL: all_class(function_name)/user_name
+        URL: all_class(function_name)
         返回: {"state":"0/1",
               "class_name":[class1,class2,class3,...],
               "class_time":[time1,time2,time3,...],
@@ -41,7 +41,7 @@ api 1.0
 
 3 features
     3.1 课程推荐
-        URL: suggestion(function_name)/user_name
+        URL: suggestion(function_name)
         返回: {
               "class_name":[class1,class2,class3,...],
               "percentage":[per1,per2,per3,...], ``` 这个参数为百分比 如： 80(per1)%的选择了A课的人也选择了B课。
@@ -49,7 +49,7 @@ api 1.0
               ...:...
               }
     3.2 推荐选系
-        URL: major_predict(function_name)/user_name
+        URL: major_predict(function_name)
         返回: {
               "major": "major_name"
               "credit":"c1"
