@@ -32,7 +32,6 @@ def loginSt(username, password):
     a.close()
     return jsonify(res)
 
-
 @app.route('/check')
 def isSession():
     if 'username' not in session:
@@ -59,6 +58,20 @@ def change_password(username, password_old, password_new):
     a.close()
     return jsonify(res)
 
+@app.route('/class')
+def all_classes():
+    a = conn()
+    res = a.get_all_classes(11510102)
+    a.close()
+    return jsonify(res)
+
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
+
+@app.route('/courses.html')
+def courses_page():
+    return render_template('courses.html')
 
 
 if __name__ == '__main__':

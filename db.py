@@ -38,14 +38,22 @@ class conn():
 
     def get_user_password(self, UID):
         sql = "select t.STUDENT_PASSWORD from OOADPro.STUDENTS t where t.SID = '{}'".format(UID)
-        result = self.__execute_sql_single(sql)
-        print(result[0])
-        return str(result[0])
+        try:
+            result = self.__execute_sql_single(sql)[0]
+        except:
+            result = None
+        #print(result)
+        return str(result)
 
     def get_user_schedule(self, UID):
         sql = "SELECT sc.SID,COURSE_NAME,TERM FROM STUDENT_COURSE sc\
               JOIN COURSE ON sc.CID = COURSE.CID JOIN STUDENTS\
                ON sc.SID = STUDENTS.SID WHERE sc.SID = '{}';".format(UID)
+        result = self.__execute_sql(sql)
+        return result
+
+    def get_all_classes(self,UID):
+        sql = "SELECT * FROM  COURSE"
         result = self.__execute_sql(sql)
         return result
 
@@ -58,6 +66,6 @@ class conn():
 # if __name__ == '__main__':
 #     a = conn()
 #     a.get_user_password(11510102)
-#     print(a.change_user_password(11510102,12345))
+#     print(a.get_all_classes(11510102))
 #     a.get_user_password(11510102)
 #     a.close()
