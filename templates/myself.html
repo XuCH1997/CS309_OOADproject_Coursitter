@@ -216,7 +216,8 @@
 <div class="htab">
     <button class="tablinks" onclick="onClickHorizontalTab(event, 'Course Timetable')">Course Timetable</button>
     <button class="tablinks" onclick="onClickHorizontalTab(event, 'Grade Query')">Grade Query</button>
-    <button class="tablinks" onclick="onClickHorizontalTab(event, 'Others')">Others</button>
+    <button class="tablinks" onclick="onClickHorizontalTab(event, 'Recommend Departments')">Recommend Departments</button>
+    <button class="tablinks" onclick="onClickHorizontalTab(event, 'Recommend Courses')">Recommend Courses</button>
 </div>
 
 <div id="Course Timetable" class="htabcontent">
@@ -260,9 +261,7 @@
 
             <td id="ct26">Web Programming</td>
 
-</div>
-
-</tr>
+        </tr>
 
 <tr>
 
@@ -280,8 +279,6 @@
 
     <td id="ct27">Applied Mathematics</td>
 
-    </div>
-
 </tr>
 
 <tr> <th>14:00 - 15:50</td>
@@ -297,8 +294,6 @@
     <td id="ct23">Web Programming</td>
 
     <td id="ct28">Computer Networks</td>
-
-    </div>
 
 </tr>
 
@@ -316,7 +311,7 @@
 
     <td id="ct24">Information Theory and Coding</td>
 
-    <td id="ct29">Computer Networks</td> </div>
+    <td id="ct29">Computer Networks</td>
 
 </tr>
 
@@ -336,8 +331,6 @@
 
     <td id="ct30">Computer Networks</td>
 
-    </div>
-
 </tr>
 
 </table>
@@ -354,10 +347,10 @@
     <div id="gq1" class="vtabcontent">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
             <tr>
-                <th>课程编号</th>
-                <th>课程名称</th>
-                <th>课程学分</th>
-                <th>成绩</th>
+                <th>CourseID</th>
+                <th>Course</th>
+                <th>Course credits</th>
+                <th>Grade</th>
             </tr>
             <tbody id="gq1body">
             <td></td>
@@ -372,10 +365,10 @@
     <div id="gq2" class="vtabcontent">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
             <tr>
-                <td>课程编号</td>
-                <td>课程名称</td>
-                <td>课程学分</td>
-                <td>成绩</td>
+                <td>CourseID</td>
+                <td>Course</td>
+                <td>Course credits</td>
+                <td>Grade</td>
             </tr>
         </table>
     </div>
@@ -383,10 +376,10 @@
     <div id="gq3" class="vtabcontent">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
             <tr>
-                <td>课程编号</td>
-                <td>课程名称</td>
-                <td>课程学分</td>
-                <td>成绩</td>
+                <td>CourseID</td>
+                <td>Course</td>
+                <td>Course credits</td>
+                <td>Grade</td>
             </tr>
         </table>
     </div>
@@ -394,10 +387,10 @@
     <div id="gq4" class="vtabcontent">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
             <tr>
-                <td>课程编号</td>
-                <td>课程名称</td>
-                <td>课程学分</td>
-                <td>成绩</td>
+                <td>CourseID</td>
+                <td>Course</td>
+                <td>Course credits</td>
+                <td>Grade</td>
             </tr>
         </table>
     </div>
@@ -405,18 +398,59 @@
     <div id="gq5" class="vtabcontent">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
             <tr>
-                <td>课程编号</td>
-                <td>课程名称</td>
-                <td>课程学分</td>
-                <td>成绩</td>
+                <td>CourseID</td>
+                <td>Course</td>
+                <td>Course credits</td>
+                <td>Grade</td>
             </tr>
         </table>
     </div>
 </div>
 
-<div id="Others" class="htabcontent">
-    <h3>Others</h3>
-    <p>Other stuffs.</p>
+<div id="Recommend Departments" class="htabcontent">
+    <table id="RDT" width="50%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>Department</td>
+            <td>Remaining credits</td>
+        </tr>
+        <tr>
+            <td>
+                <a href="">
+                    <div style="height:100%;width:100%">
+                        计算机科学
+                    </div>
+                </a>
+            </td>
+            <td>72</td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>CS305</td>-->
+            <!--<td>计算机网络</td>-->
+            <!--<td>3</td>-->
+            <!--<td>A</td>-->
+        <!--</tr>-->
+    </table>
+</div>
+
+<div id="Recommend Courses" class="htabcontent">
+    <table id="RCT" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>CourseID</td>
+            <td>Course</td>
+            <td>Probobility</td>
+            <td>Teacher</td>
+            <td>Selection</td>
+        </tr>
+        <tr>
+            <td>CS305</td>
+            <td>计算机网络</td>
+            <td>72%</td>
+            <td>张进</td>
+            <td>
+                <button type="button" onclick="selectCourse()">Select</button>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <script>
@@ -433,28 +467,62 @@
         document.getElementById(tabid).style.display = "block";
         evt.currentTarget.className += " active";
 
-        if(tabid == "Course Timetable"){
-            var url = 'http://119.23.233.0:5000/schedule';
-            var json_obj = JSON.parse(Get())
-            var i, j, info, temp_id, temp_cell;
-            for (i = 0; i < json_obj.length; i++ ){
-                info = json_obj[i][0] + "/n" + json_obj[i][3] + "/n" + json_obj[i][1];
-                for (j = 0; j < json_obj[i][2].length; j++){
-                    temp_id = "ct" + json_obj[i][2][j];
-                    temp_cell = document.getElementById(temp_id);
-                    temp_cell.innerText = info
-                }
-            }
+        if(tabid === "Course Timetable"){
+            getCourseTable();
         }
 
-        if(tabid == "Grade Query")
+        if(tabid === "Recommend Departments"){
+            getRecommendDepartments();
+        }
+
+        if(tabid === "Recommend Courses"){
+            getRecommendCourses();
+        }
+        
+        if(tabid === "Grade Query")
         {
             onClickGradeQuery("gq1");
         }
     }
 
-    function onClickCourseTable() {
+    function getCourseTable() {
+        var url = 'http://119.23.233.0:5000/schedule';
+        var json_obj = JSON.parse(Get(url));
+        var i, j, info, temp_id, temp_cell;
+        for (i = 0; i < json_obj.length; i++ ) {
+            info = json_obj[i][0] + "/n" + json_obj[i][3] + "/n" + json_obj[i][1];
+            for (j = 0; j < json_obj[i][2].length; j++) {
+                temp_id = "ct" + json_obj[i][2][j];
+                temp_cell = document.getElementById(temp_id);
+                temp_cell.innerText = info
+            }
+        }
+    }
 
+    function getRecommendDepartments(){
+        var url = 'http://119.23.233.0:5000/major_predict';
+        var json_obj = JSON.parse(Get(url));
+        var table = document.getElementById("RDT");
+        var i;
+        for (i = 0; i < json_obj.length; i++ ) {
+            let newRow = table.insertRow(i);
+            newRow.insertCell(0).innerHTML = json_obj[i][0];
+            newRow.insertCell(1).innerHTML = json_obj[i][1];
+            newRow.insertCell(2).innerHTML = json_obj[i][2];
+            // newRow.insertCell(3).innerHTML = json_obj[i][3];
+            // newRow.insertCell(4).innerHTML =
+        }
+    }
+    function getRecommendCourses() {
+        var url = 'http://119.23.233.0:5000/major_predict';
+        var json_obj = JSON.parse(Get(url));
+        var table = document.getElementById("RCT");
+        var i;
+        for (i = 0; i < json_obj.length; i++ ) {
+            let newRow = table.insertRow(i);
+            newRow.insertCell(0).innerHTML = json_obj[i][0];
+            newRow.insertCell(1).innerHTML = json_obj[i][1];
+        }
     }
 
     function onClickGradeQuery(tabid)

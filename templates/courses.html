@@ -178,7 +178,7 @@
       <td style="">专业核心课</td>
       <td style="">选修</td>-->
         <td>
-            <a href="#" onclick="pick_withdraw(this.innerHTML);">选课</a>
+            <a href="#" onclick="pick_withdraw(this.parentElement);">选课</a>
         </td>
     </tr>
     </tbody>
@@ -243,7 +243,7 @@
         bodyObj.style.display = ""; // display the tbody
         let cellCount = bodyObj.rows[0].cells.length;
         let newRow = bodyObj.insertRow(rowCount++);
-        newRow.setAttribute('id',)
+        newRow.setAttribute('id',"tr" + rowCount.toString());
         newRow.insertCell(0).innerHTML = v0;
         newRow.insertCell(1).innerHTML = v1;
         newRow.insertCell(2).innerHTML = v2;
@@ -254,15 +254,43 @@
         newRow.insertCell(7).innerHTML = v7;
         newRow.insertCell(8).innerHTML = v8;
         newRow.insertCell(9).innerHTML = v9;
-        newRow.insertCell(10).innerHTML = bodyObj.rows[0].cells[cellCount - 1].innerHTML;
+        let last_cell = newRow.insertCell(10);
+        last_cell.innerHTML = bodyObj.rows[0].cells[cellCount - 1].innerHTML;
+        last_cell.setAttribute('id',newRow.rowIndex);
+        // alert(last_cell.getAttribute('id').toString());
         bodyObj.rows[0].style.display = "none"; // hide the first row
     }
 
-    function with_withdraw(content)
+    function pick_withdraw(content)
     {
-        if(content === "选课")
+        if(content.innerHTML === "选课")
         {
-
+            var table_row = document.getElementById('tr' + content.getAttribute('id'));
+            alert('tr' + content.getAttribute('id'));
+            var course_id = table_row.cells[0].innerHTML;
+            var url = "http://119.23.233.0:5000/" + "pick/" + course_id;
+            var result = Get(url);
+            alert(result);
+            if(result === "success")
+            {
+                content.innerHTML = "退课";
+            }
+        }
+        else if(content.innerHTML === "选课")
+        {
+            var table_row = document.getElementById('tr' + content.getAttribute('id'));
+            var course_id = table_row.cells[0].innerHTML;
+            var url = "http://119.23.233.0:5000/" + "with_withdraw/" + course_id;
+            var result = Get(url);
+            alert(result);
+            if(result === "success")
+            {
+                content.innerHTML = "选课";
+            }
+        }
+        else
+        {
+            alert('errrrrrrrrrrrrrrrrrrrrrrrrrrrrrror' + content.innerHTML);
         }
     }
 </script>
