@@ -175,6 +175,7 @@ span.psw {
     try{
         var response = Get(url);
         var json_obj = JSON.parse(response);
+	alert('correct login');
         if (json_obj.state == 1){
             next_url = "courses.html";
             window.open(next_url, "_self");
