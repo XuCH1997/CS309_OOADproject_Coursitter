@@ -249,17 +249,17 @@
 
             <th>08:00 - 09:50</th>
 
-            <td id="ct1"></td>
+            <td id="ct1">Applied Mathematics </td>
 
-            <td id="ct6"></td>
+            <td id="ct6">Computer Networks</td>
 
-            <td id="ct11"></td>
+            <td id="ct11">Information Theory and Coding</td>
 
-            <td id="ct16"></td>
+            <td id="ct16">Computer Organization and Architecture</td>
 
-            <td id="ct21"></td>
+            <td id="ct21">Automata Theory</td>
 
-            <td id="ct26"></td>
+            <td id="ct26">Web Programming</td>
 
         </tr>
 
@@ -267,33 +267,33 @@
 
     <th>10:20 - 12:10</th>
 
-    <td id="ct2"></td>
+    <td id="ct2">Information Theory and Coding</td>
 
-    <td id="ct7"></td>
+    <td id="ct7">Web Programming</td>
 
-    <td id="ct12"></td>
+    <td id="ct12">Computer Networks</td>
 
-    <td id="ct17"></td>
+    <td id="ct17">Computer Networks</td>
 
-    <td id="ct22"></td>
+    <td id="ct22">Automata Theory</td>
 
-    <td id="ct27"></td>
+    <td id="ct27">Applied Mathematics</td>
 
 </tr>
 
 <tr> <th>14:00 - 15:50</td>
 
-    <td id="ct3"></th>
+    <td id="ct3">Applied Mathematics</th>
 
-    <td id="ct8"></td>
+    <td id="ct8">Information Theory and Coding</td>
 
-    <td id="ct13"></td>
+    <td id="ct13">Automata Theory</td>
 
-    <td id="ct18"></td>
+    <td id="ct18">Computer Networks</td>
 
-    <td id="ct23"></td>
+    <td id="ct23">Web Programming</td>
 
-    <td id="ct28"></td>
+    <td id="ct28">Computer Networks</td>
 
 </tr>
 
@@ -301,17 +301,17 @@
 
     <th>14:20 - 18:10</th>
 
-    <td id="ct4"></td>
+    <td id="ct4">Applied Mathematics</td>
 
-    <td id="ct9"></td>
+    <td id="ct9">Computer Organization and Architecture</td>
 
-    <td id="ct14"></td>
+    <td id="ct14">Automata Theory</td>
 
-    <td id="ct19"></td>
+    <td id="ct19">Web Programming</td>
 
-    <td id="ct24"></td>
+    <td id="ct24">Information Theory and Coding</td>
 
-    <td id="ct29"></td>
+    <td id="ct29">Computer Networks</td>
 
 </tr>
 
@@ -319,21 +319,82 @@
 
     <th>19:00 - 20:50</th>
 
-    <td id="ct5"></td>
+    <td id="ct5">Applied Mathematics</td>
 
-    <td id="ct10"></td>
+    <td id="ct10">Web Programming</td>
 
-    <td id="ct15"></td>
+    <td id="ct15">Automata Theory</td>
 
-    <td id="ct20"></td>
+    <td id="ct20">Computer Organization and Architecture</td>
 
-    <td id="ct25"></td>
+    <td id="ct25">Information Theory and Coding</td>
 
-    <td id="ct30"></td>
+    <td id="ct30">Computer Networks</td>
 
 </tr>
 
 </table>
+
+
+
+
+
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="Nsb_r_list Nsb_table">
+    <tr>
+        <th class="Nsb_r_list_thb" scope="col">编号</th>
+        <th class="Nsb_r_list_thb" scope="col">名称</th>
+        <th class="Nsb_r_list_thb" scope="col">容量</th>
+        <th class="Nsb_r_list_thb" scope="col">学时</th>
+        <th class="Nsb_r_list_thb" scope="col">院系</th>
+        <th class="Nsb_r_list_thb" scope="col">时间</th>
+        <th class="Nsb_r_list_thb" scope="col">学分</th>
+        <th class="Nsb_r_list_thb" scope="col">已选人数</th>
+        <th class="Nsb_r_list_thb" scope="col">老师</th>
+        <th class="Nsb_r_list_thb" scope="col">地点</th>
+        <th class="Nsb_r_list_thb" scope="col">操作</th>
+        <!--     <th class="Nsb_r_list_thb"  scope="col">课程类别</th>
+            <th class="Nsb_r_list_thb"  scope="col">课程性质</th>
+            <th class="Nsb_r_list_thb"  scope="col">课程属性</th>-->
+        <!-- <th class="Nsb_r_list_thb" scope="col">状态</th>
+         -->
+    </tr>
+
+    <tbody id="tbody_all_courses" style="display: none;">
+    <tr>
+        <td style="">MA301</td>
+        <td style="">实变函数</td>
+        <td style="">100</td>
+        <td style="">48</td>
+        <td style="">数学系</td>
+        <td style="">1,3,5</td>
+        <td style="">3</td>
+        <td style="">48</td>
+        <td style="">buzhidao</td>
+        <td style="">liyuan</td>
+        <!--     <td style="">理论课（不含实践）</td>
+      <td style="">专业核心课</td>
+      <td style="">选修</td>-->
+        <td>
+            <a href="#" onclick="pick_withdraw(this);">选课</a>
+        </td>
+    </tr>
+    </tbody>
+
+    <tr>
+        <td colspan="16">未查询到数据</td>
+    </tr>
+
+</table>
+
+
+
+
+
+
+
+
 </div>
 
 <div id="Grade Query" class="htabcontent">
@@ -485,12 +546,11 @@
     function getCourseTable() {
         var url = 'http://119.23.233.0:5000/schedule';
         var json_obj = JSON.parse(Get(url));
-		var i, j, info, temp_id, temp_cell;
+        var i, j, info, temp_id, temp_cell;
         for (i = 0; i < json_obj.length; i++ ) {
-            info = json_obj[i][0] + "\n" + json_obj[i][3] + "\n" + json_obj[i][1];
-			times = json_obj[i][2].split(",");
-            for (j = 0; j < times.length; j++) {
-                temp_id = "ct" + times[j];
+            info = json_obj[i][0] + "/n" + json_obj[i][3] + "/n" + json_obj[i][1];
+            for (j = 0; j < json_obj[i][2].length; j++) {
+                temp_id = "ct" + json_obj[i][2][j];
                 temp_cell = document.getElementById(temp_id);
                 temp_cell.innerText = info
             }
@@ -502,7 +562,6 @@
         var json_obj = JSON.parse(Get(url));
         var table = document.getElementById("RDT");
         var i;
-		alert(json_obj);
         for (i = 0; i < json_obj.length; i++ ) {
             let newRow = table.insertRow(i);
             newRow.insertCell(0).innerHTML = json_obj[i][0];
@@ -517,7 +576,6 @@
         var json_obj = JSON.parse(Get(url));
         var table = document.getElementById("RCT");
         var i;
-		alert(json_obj);
         for (i = 0; i < json_obj.length; i++ ) {
             let newRow = table.insertRow(i);
             newRow.insertCell(0).innerHTML = json_obj[i][0];
