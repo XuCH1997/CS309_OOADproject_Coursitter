@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 "> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]>
+<html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <title>Myself</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="../static/content/toy/images/img.ico">
+
+    <!-- FONTS -->
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,400italic,700'>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Patua+One:100,300,400,400italic,700'>
+    <link rel='stylesheet'
+          href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,600,600italic,700,700italic'>
+    <link rel='stylesheet'
+          href='http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600,600italic,700,700italic'>
+
+    <!-- CSS -->
+    <link rel='stylesheet' href='../static/css/global.css'>
+    <link rel='stylesheet' href='../static/css/structure.css'>
+    <link rel='stylesheet' href='../static/css/dentist.css'>
+    <!--<link rel='stylesheet' href='custom.css'>-->
+
+</head>
+<style>
+    /* Style the tab */
+    .htab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    /* Style the buttons inside the tab */
+    .htab button {
+        background-color: inherit;
+        color: black;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .htab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .htab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .htabcontent {
+        display: none;
+        /*padding: 6px 12px;*/
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+    /* Style the tab */
+    .vtab {
+        float: left;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        width: 10%;
+        height: 500px;
+    }
+
+    /* Style the buttons inside the tab */
+    .vtab button {
+        display: block;
+        background-color: inherit;
+        color: black;
+        padding: 22px 16px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .vtab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current "tab button" class */
+    .vtab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .vtabcontent {
+        float: right;
+        /*padding: 0px 12px;*/
+        border: 1px solid #ccc;
+        width: 89%;
+        border-left: none;
+        height: 500px;
+    }
+
+    .courseTable {
+        border-left: none;
+        border-top: none;
+        border-right: none;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<body class="style-simple layout-full-width mobile-tb-left no-content-padding header-creative header-open minimalist-header sticky-white subheader-both-center menuo-no-borders footer-copy-center">
+<div id="Header_creative">
+    <a href="#" class="creative-menu-toggle"><i class="icon-menu"></i></a>
+    <!--Social info area-->
+    <ul class="social creative-social"></ul>
+    <div class="creative-wrapper">
+        <!-- Header -  Logo and Menu area -->
+        <div id="Top_bar">
+            <div class="one">
+                <div class="top_bar_left">
+                    <!-- Logo-->
+                    <div class="logo">
+                        <a id="logo" href="#" title="SUSTech"><img class="scale-with-grid" src="../static/content/toy/images/sustech.png" alt="SUSTech"/>
+                        </a>
+                    </div>
+                    <!-- Main menu-->
+                    <div class="menu_wrapper">
+                        <nav id="menu" class="menu-main-menu-container">
+                            <ul id="menu-main-menu" class="menu">
+                                <li>
+                                    <a href="#"><span>Home</span></a>
+                                </li>
+                                <li>
+                                    <a href="courses"><span>Courses</span></a>
+                                </li>
+                                <li class="current_page_item">
+                                    <a href="#"><span>Myself</span></a>
+                                </li>
+                                <li>
+                                    <a href="about"><span>About</span></a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <a class="responsive-menu-toggle" href="#"><i class="icon-menu"></i></a>
+                    </div>
+                    <!-- Header Searchform area-->
+                    <div class="search_wrapper">
+                        <form method="get" id="searchform" action="#">
+
+                            <input type="text" class="field" name="s" id="s" placeholder="Enter your search"/>
+                            <input type="submit" class="submit flv_disp_none" value=""/>
+                        </form>
+                    </div>
+                </div>
+                <!-- Banner area - only for certain pages-->
+                <div class="banner_wrapper"></div>
+            </div>
+        </div>
+        <!-- Header Top -  Info Area -->
+        <div id="Action_bar">
+            <!--Social info area-->
+            <ul class="social"></ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- Main Theme Wrapper -->
+<div id="Wrapper">
+    <!-- Header Wrapper -->
+    <div id="Header_wrapper">
+        <!-- Header -->
+        <header id="Header"></header>
+        <!--Subheader area - only for certain pages -->
+        <div id="Subheader">
+            <div class="container">
+                <div class="column one">
+                    <h1 class="title">Myself</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="htab">
+    <button class="tablinks" onclick="onClickHorizontalTab(event, 'Course Timetable')">Course Timetable</button>
+    <button class="tablinks" onclick="onClickHorizontalTab(event, 'Grade Query')">Grade Query</button>
+    <button class="tablinks" onclick="onClickHorizontalTab(event, 'Others')">Others</button>
+</div>
+
+<div id="Course Timetable" class="htabcontent">
+    <H1><FONT COLOR="DARKCYAN"><CENTER>MY TIME TABLE</FONT></H1>
+
+    <table border="2" cellspacing="3" align="center" width="80%">
+
+        <div id="head_nav">
+
+            <tr> <th>Time</th>
+
+                <th>Monday</th>
+
+                <th>Tuesday</th>
+
+                <th>Wednesday</th>
+
+                <th>Thrusday</th>
+
+                <th>Friday</th>
+
+                <th>Saturday</th>
+
+            </tr>
+
+        </div>
+
+        <tr>
+
+            <th>08:00 - 09:50</th>
+
+            <td id="ct1">Applied Mathematics </td>
+
+            <td id="ct6">Computer Networks</td>
+
+            <td id="ct11">Information Theory and Coding</td>
+
+            <td id="ct16">Computer Organization and Architecture</td>
+
+            <td id="ct21">Automata Theory</td>
+
+            <td id="ct26">Web Programming</td>
+
+</div>
+
+</tr>
+
+<tr>
+
+    <th>10:20 - 12:10</th>
+
+    <td id="ct2">Information Theory and Coding</td>
+
+    <td id="ct7">Web Programming</td>
+
+    <td id="ct12">Computer Networks</td>
+
+    <td id="ct17">Computer Networks</td>
+
+    <td id="ct22">Automata Theory</td>
+
+    <td id="ct27">Applied Mathematics</td>
+
+    </div>
+
+</tr>
+
+<tr> <th>14:00 - 15:50</td>
+
+    <td id="ct3">Applied Mathematics</th>
+
+    <td id="ct8">Information Theory and Coding</td>
+
+    <td id="ct13">Automata Theory</td>
+
+    <td id="ct18">Computer Networks</td>
+
+    <td id="ct23">Web Programming</td>
+
+    <td id="ct28">Computer Networks</td>
+
+    </div>
+
+</tr>
+
+<tr>
+
+    <th>14:20 - 18:10</th>
+
+    <td id="ct4">Applied Mathematics</td>
+
+    <td id="ct9">Computer Organization and Architecture</td>
+
+    <td id="ct14">Automata Theory</td>
+
+    <td id="ct19">Web Programming</td>
+
+    <td id="ct24">Information Theory and Coding</td>
+
+    <td id="ct29">Computer Networks</td> </div>
+
+</tr>
+
+<tr>
+
+    <th>19:00 - 20:50</th>
+
+    <td id="ct5">Applied Mathematics</td>
+
+    <td id="ct10">Web Programming</td>
+
+    <td id="ct15">Automata Theory</td>
+
+    <td id="ct20">Computer Organization and Architecture</td>
+
+    <td id="ct25">Information Theory and Coding</td>
+
+    <td id="ct30">Computer Networks</td>
+
+    </div>
+
+</tr>
+
+</table>
+</div>
+
+<div id="Grade Query" class="htabcontent">
+    <div class="vtab" display="inline-block">
+        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq1')" id="defaultOpen">Semester1</button>
+        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq2')">Semester2</button>
+        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq3')">Semester3</button>
+        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq4')">Semester4</button>
+        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq5')">Total</button>
+    </div>
+    <div id="gq1" class="vtabcontent">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
+            <tr>
+                <th>课程编号</th>
+                <th>课程名称</th>
+                <th>课程学分</th>
+                <th>成绩</th>
+            </tr>
+            <tbody id="gq1body">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div id="gq2" class="vtabcontent">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
+            <tr>
+                <td>课程编号</td>
+                <td>课程名称</td>
+                <td>课程学分</td>
+                <td>成绩</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="gq3" class="vtabcontent">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
+            <tr>
+                <td>课程编号</td>
+                <td>课程名称</td>
+                <td>课程学分</td>
+                <td>成绩</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="gq4" class="vtabcontent">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
+            <tr>
+                <td>课程编号</td>
+                <td>课程名称</td>
+                <td>课程学分</td>
+                <td>成绩</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="gq5" class="vtabcontent">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
+            <tr>
+                <td>课程编号</td>
+                <td>课程名称</td>
+                <td>课程学分</td>
+                <td>成绩</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="Others" class="htabcontent">
+    <h3>Others</h3>
+    <p>Other stuffs.</p>
+</div>
+
+<script>
+    function onClickHorizontalTab(evt, tabid) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("htabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabid).style.display = "block";
+        evt.currentTarget.className += " active";
+
+        if(tabid == "Course Timetable"){
+            var url = 'http://119.23.233.0:5000/schedule';
+            var json_obj = JSON.parse(Get())
+            var i, j, info, temp_id, temp_cell;
+            for (i = 0; i < json_obj.length; i++ ){
+                info = json_obj[i][0] + "/n" + json_obj[i][3] + "/n" + json_obj[i][1];
+                for (j = 0; j < json_obj[i][2].length; j++){
+                    temp_id = "ct" + json_obj[i][2][j];
+                    temp_cell = document.getElementById(temp_id);
+                    temp_cell.innerText = info
+                }
+            }
+        }
+
+        if(tabid == "Grade Query")
+        {
+            onClickGradeQuery("gq1");
+        }
+    }
+
+    function onClickCourseTable() {
+
+    }
+
+    function onClickGradeQuery(tabid)
+    {
+        var obj = "";
+        obj = JSON.parse(grade_query_1);
+        if(obj.state == 1)
+        {
+            let bodyObj = document.getElementById("gq1body");
+            if(bodyObj === null)
+            {
+                alert("Body of Table not Exist!");
+                return;
+            }
+
+            for(i in obj.class_name)
+            {
+                let rowCount = bodyObj.rows.length;
+                let newRow = bodyObj.insertRow(rowCount++);
+                newRow.insertCell(0).innerHTML = obj.class_name[i][0];
+                newRow.insertCell(1).innerHTML = obj.class_name[i][1];
+                newRow.insertCell(2).innerHTML = obj.class_name[i][2];
+                newRow.insertCell(3).innerHTML = obj.class_name[i][3];
+            }
+
+        }
+    }
+
+    function onClickVerticalTab(evt, tabid) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("vtabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabid).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+
+    function Get(yourUrl){
+        var Httpreq = new XMLHttpRequest(); // a new request
+        Httpreq.open("GET",yourUrl,false);
+        Httpreq.send(null);
+        // window.alert(Httpreq.responseText);
+        return Httpreq.responseText;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- JS -->
+<script src="../static/js/jquery-2.1.4.min.js"></script>
+
+<script src="../static/js/mfn.menu.js"></script>
+<script src="../static/js/jquery.plugins.js"></script>
+<script src="../static/js/jquery.jplayer.min.js"></script>
+<script src="../static/js/animations/animations.js"></script>
+<script src="../static/js/scripts.js"></script>
+
+<script>
+    jQuery(window).load(function () {
+        var retina = window.devicePixelRatio > 1 ? true : false;
+        if (retina) {
+            var retinaEl = jQuery("#logo img.logo-main");
+            var retinaLogoW = retinaEl.width();
+            var retinaLogoH = retinaEl.height();
+            retinaEl.attr("src", "images/retina-dentist.png").width(retinaLogoW).height(retinaLogoH);
+            var stickyEl = jQuery("#logo img.logo-sticky");
+            var stickyLogoW = stickyEl.width();
+            var stickyLogoH = stickyEl.height();
+            stickyEl.attr("src", "images/retina-dentist.png").width(stickyLogoW).height(stickyLogoH);
+        }
+    });
+</script>
+
+</body>
+
+</html>

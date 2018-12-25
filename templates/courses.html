@@ -41,7 +41,7 @@
 
 </head>
 
-<body class="style-simple layout-full-width mobile-tb-left no-content-padding header-creative header-open minimalist-header sticky-white subheader-both-center menuo-no-borders footer-copy-center">
+<body class="style-simple layout-full-width mobile-tb-left no-content-padding header-creative header-open minimalist-header sticky-white subheader-both-center menuo-no-borders footer-copy-center" onload="onloadTable()">
 <div id="Header_creative">
     <a href="#" class="creative-menu-toggle"><i class="icon-menu"></i></a>
     <!--Social info area-->
@@ -60,16 +60,16 @@
                         <nav id="menu" class="menu-main-menu-container">
                             <ul id="menu-main-menu" class="menu">
                                 <li>
-                                    <a href="mainpage.html"><span>Home</span></a>
+                                    <a href="#"><span>Home</span></a>
                                 </li>
                                 <li class="current_page_item">
                                     <a href="#"><span>Courses</span></a>
                                 </li>
                                 <li>
-                                    <a href="myself.html"><span>Myself</span></a>
+                                    <a href="myself"><span>Myself</span></a>
                                 </li>
                                 <li>
-                                    <a href="about.html"><span>About</span></a>
+                                    <a href="http:about"><span>About</span></a>
                                 </li>
                             </ul>
                         </nav>
@@ -139,61 +139,140 @@
 </table>
 
 
+
+
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="Nsb_r_list Nsb_table">
     <tr>
-        <th class="Nsb_r_list_thb" scope="col">序号</th>
-        <th class="Nsb_r_list_thb" scope="col">学年学期</th>
-        <th class="Nsb_r_list_thb" scope="col">开课院系</th>
-        <th class="Nsb_r_list_thb" scope="col">课程号</th>
-        <th class="Nsb_r_list_thb" scope="col">课程名称</th>
+        <th class="Nsb_r_list_thb" scope="col">编号</th>
+        <th class="Nsb_r_list_thb" scope="col">名称</th>
+        <th class="Nsb_r_list_thb" scope="col">容量</th>
+        <th class="Nsb_r_list_thb" scope="col">学时</th>
+        <th class="Nsb_r_list_thb" scope="col">院系</th>
+        <th class="Nsb_r_list_thb" scope="col">时间</th>
         <th class="Nsb_r_list_thb" scope="col">学分</th>
-        <th class="Nsb_r_list_thb" scope="col">总学时</th>
+        <th class="Nsb_r_list_thb" scope="col">已选人数</th>
+        <th class="Nsb_r_list_thb" scope="col">老师</th>
+        <th class="Nsb_r_list_thb" scope="col">地点</th>
+        <th class="Nsb_r_list_thb" scope="col">操作</th>
         <!--     <th class="Nsb_r_list_thb"  scope="col">课程类别</th>
             <th class="Nsb_r_list_thb"  scope="col">课程性质</th>
             <th class="Nsb_r_list_thb"  scope="col">课程属性</th>-->
-        <th class="Nsb_r_list_thb" scope="col">状态</th>
-        <th class="Nsb_r_list_thb" scope="col">操作</th>
+        <!-- <th class="Nsb_r_list_thb" scope="col">状态</th>
+         -->
     </tr>
 
+    <tbody id="tbody_all_courses" style="display: none;">
     <tr>
-        <td>1</td>
-        <td style="">2018-2019-1</td>
-        <td style="">数学系</td>
         <td style="">MA301</td>
         <td style="">实变函数</td>
+        <td style="">100</td>
+        <td style="">48</td>
+        <td style="">数学系</td>
+        <td style="">1,3,5</td>
         <td style="">3</td>
         <td style="">48</td>
+        <td style="">buzhidao</td>
+        <td style="">liyuan</td>
         <!--     <td style="">理论课（不含实践）</td>
       <td style="">专业核心课</td>
       <td style="">选修</td>-->
-        <td style="">启用</td>
         <td>
-            <a href="javascript:void(0);" onclick="javascript:kcjjQueryxq('MA202')">查看</a>
+            <a href="#" onclick="pick_withdraw(this.innerHTML);">选课</a>
         </td>
     </tr>
-
-    <tr>
-        <td>2</td>
-        <td style="">2018-2019-1</td>
-        <td style="">数学系</td>
-        <td style="">MA212</td>
-        <td style="">概率论与数理统计</td>
-        <td style="">3</td>
-        <td style="">48</td>
-        <!--     <td style="">理论课（不含实践）</td>
-      <td style="">通识必修课</td>
-      <td style="">必修</td>-->
-        <td style="">启用</td>
-        <td>
-            <a href="javascript:void(0);" onclick="javascript:kcjjQueryxq('MA204')">查看</a>
-        </td>
-    </tr>
+    </tbody>
 
     <tr>
         <td colspan="16">未查询到数据</td>
     </tr>
 
 </table>
+
+
+
+
+
+
+<script type="text/javascript">
+    function onloadTable()
+    {
+        var url = "http://119.23.233.0:5000/all_class"
+        var json_obj = JSON.parse(Get(url));
+        // var info = JSON.stringify(json_obj);
+        // var data = eval('(' + info + ')');
+        // alert(data.district);
+        // alert(json_obj[0][1]);
+        // alert(json_obj.length);
+
+        var i;
+        for(i = 0; i < json_obj.length; i++)
+        {
+            var v0 = json_obj[i][0];
+            var v1 = json_obj[i][1];
+            var v2 = json_obj[i][2];
+            var v3 = json_obj[i][3];
+            var v4 = json_obj[i][4];
+            var v5 = json_obj[i][5];
+            var v6 = json_obj[i][6];
+            var v7 = json_obj[i][7];
+            var v8 = json_obj[i][8];
+            var v9 = json_obj[i][9];
+            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9);
+        }
+    }
+
+    function Get(yourUrl)
+    {
+      var Httpreq = new XMLHttpRequest(); // a new request
+      Httpreq.open("GET",yourUrl,false);
+      Httpreq.send(null);
+      // window.alert(Httpreq.responseText);
+      return Httpreq.responseText;
+    }
+
+    function addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9)
+    {
+        let bodyObj = document.getElementById("tbody_all_courses");
+        if(bodyObj === null)
+        {
+            alert("Body of Table not Exist!");
+            return;
+        }
+        let rowCount = bodyObj.rows.length;
+        bodyObj.style.display = ""; // display the tbody
+        let cellCount = bodyObj.rows[0].cells.length;
+        let newRow = bodyObj.insertRow(rowCount++);
+        newRow.setAttribute('id',)
+        newRow.insertCell(0).innerHTML = v0;
+        newRow.insertCell(1).innerHTML = v1;
+        newRow.insertCell(2).innerHTML = v2;
+        newRow.insertCell(3).innerHTML = v3;
+        newRow.insertCell(4).innerHTML = v4;
+        newRow.insertCell(5).innerHTML = v5;
+        newRow.insertCell(6).innerHTML = v6;
+        newRow.insertCell(7).innerHTML = v7;
+        newRow.insertCell(8).innerHTML = v8;
+        newRow.insertCell(9).innerHTML = v9;
+        newRow.insertCell(10).innerHTML = bodyObj.rows[0].cells[cellCount - 1].innerHTML;
+        bodyObj.rows[0].style.display = "none"; // hide the first row
+    }
+
+    function with_withdraw(content)
+    {
+        if(content === "选课")
+        {
+
+        }
+    }
+</script>
+
+
+
+
+
+
+
 
 
 <!-- JS -->
