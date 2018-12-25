@@ -23,7 +23,7 @@ def page_not_found(e):
     return jsonify(404)
 
 
-@app.route('/loginSt/<username>/<password>',methods=['GET', 'POST'])
+@app.route('/loginSt/<username>/<password>', methods=['GET', 'POST'])
 @cross_origin()
 def loginSt(username, password):
     logout()
@@ -106,16 +106,17 @@ def pick_class(CID):
     else:
         return redirect(url_for('login_page'))
 
+
+@app.route('/withdraw/<CID>')
 def withdraw(CID):
     if 'username' in session:
         UID = session['username']
         a = conn()
-        a.withdraw_course(UID,CID)
+        a.withdraw_course(UID, CID)
         a.close()
-        return jsonify({"message":"success"})
+        return jsonify({"message": "success"})
     else:
         return redirect(url_for('login_page'))
-
 
 
 @app.route('/login')
@@ -131,5 +132,6 @@ def courses_page():
         return redirect(url_for('login_page'))
     return render_template('courses.html')
 
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port="5000", debug=True)
+    app.run(host="0.0.0.0", port="5000", debug=True)
