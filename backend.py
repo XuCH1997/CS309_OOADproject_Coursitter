@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from flask import Flask, render_template, jsonify, session, url_for, redirect
 from flask_cors import CORS, cross_origin
 from db import *
