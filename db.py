@@ -151,7 +151,8 @@ class conn():
             return msg
 
     def withdraw_course(self, UID, CID, TERM="2018SPRING"):
-        sql = ""
+        sql = "DELETE FROM STUDENT_COURSE WHERE SID = '{}' and CID = '{}' and TERM = '{}'".format(UID, CID, TERM)
+        self.__execute_sql(sql)
 
 # if __name__ == '__main__':
 #     a = conn()

@@ -110,9 +110,9 @@ def withdraw(CID):
     if 'username' in session:
         UID = session['username']
         a = conn()
-        msg = 1
+        a.withdraw_course(UID,CID)
         a.close()
-        return msg
+        return jsonify({"message":"success"})
     else:
         return redirect(url_for('login_page'))
 
