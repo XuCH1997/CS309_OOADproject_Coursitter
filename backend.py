@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, session, url_for, redirect
-from flask_cors import CORS,cross_origin
+from flask_cors import CORS, cross_origin
 from db import *
 from datetime import timedelta
 import os
@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 CORS(app)
+
 
 @app.route('/home')
 @app.route('/')
@@ -35,6 +36,7 @@ def loginSt(username, password):
         res = {'state': 0, 'message': 'Fail'}
     a.close()
     return jsonify(res)
+
 
 @app.route('/check')
 @cross_origin()
@@ -65,18 +67,43 @@ def change_password(username, password_old, password_new):
     a.close()
     return jsonify(res)
 
-@app.route('/class')
+
+@app.route('/all_class')
 @cross_origin()
 def all_classes():
-    a = conn()
-    res = a.get_all_classes(11510102)
-    a.close()
-    return jsonify(res)
+    if 'username' in session:
+        UID = session['username']
+        a = conn()
+        res = a.get_all_classes(UID)
+        a.close()
+        return jsonify(res)
+    else:
+        return redirect(url_for('login_page'))
+
+@app.route('/schedule')
+@cross_origin()
+def schedule():
+    if 'username' in session:
+        UID = session['username']
+        a = conn()
+        res = a.get_schedule(UID)
+        a.close()
+        return jsonify(res)
+    else:
+        return redirect(url_for('login_page'))
+
+@app.route('/pick/<CID>')
+@cross_origin()
+def pick_class(CID):
+    if 'username' in session:
+        UID = session['username']
+        a = conn()
 
 @app.route('/login')
 @cross_origin()
 def login_page():
     return render_template('login.html')
+
 
 @app.route('/courses.html')
 @cross_origin()
