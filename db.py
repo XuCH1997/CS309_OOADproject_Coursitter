@@ -88,23 +88,20 @@ class conn():
             #print(selected_course)
             print(all_comb)
             con_set = []
-            i = 0
-            con_set = self.read_con(all_comb, limit_comb, i, con_set)
+            con_set = self.read_con(all_comb, limit_comb, con_set)
             print(con_set)
         else:
             return True
 
-    def read_con(self, all_comb, limit_comb, i, con_set):
+    def read_con(self, all_comb, limit_comb, con_set):
         for item in all_comb:
             print(item)
             if item[0] == limit_comb:
                 if item[2] == None:
-                    con_set[i] = item[1]
-                    i += 1
-                    con_set[i] = item[3]
-                    i += 1
+                    con_set.append(item[1])
+                    con_set.append(item[3])
                 elif item[1] == None:
-                    con_set = self.read_con(all_comb, item[2], i, con_set)
+                    con_set = self.read_con(all_comb, item[2], con_set)
         return con_set
 
     def select_course(self, UID, CID, TERM="2018SPRING"):
