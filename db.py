@@ -55,7 +55,7 @@ class conn():
     def get_all_classes(self, UID):
         sql = "SELECT c.CID,c.COURSE_NAME,c.COURSE_CAP,c.COURSE_DUR,\
         c.COURSE_MAJOR,c.COURSE_TIME,c.CREDITS,c.SELECTED_NUMBER,\
-        c.TEACHER,c.COURSE_LOC FROM  COURSE as c where c.CID \
+        c.TEACHER,c.COURSE_LOC,c.COURSE_TERM FROM  COURSE as c where c.CID \
         not in(SELECT st.CID FROM STUDENT_COURSE as st WHERE st.SID = '{}');".format(
             UID)
         result = self.__execute_sql(sql)

@@ -47,20 +47,20 @@ api 2.0
         URL: pick OR withdraw(function_name)/courseid(para)
         返回: {"an message here"}
 
-↓###还没做好###↓
+↓###还没做好###↓(但是我会做成这个样子)
 3 features
     3.1 课程推荐
         URL: suggestion(function_name)
-        返回: {
-              "class_name":[class1,class2,class3,...],
-              "percentage":[per1,per2,per3,...], ``` 这个参数为百分比 如： 80(per1)%的选择了A课的人也选择了B课。
-              "teacher":[teacher1,teacher2,teacher3,...],
-              ...:...
-              }
+        返回: [
+              [courseA1,courseB1,per1,teacher1],
+              [courseA2,courseB2,per2,teacher2], ``` 这个参数为百分比 如： 80(per1)%的选择了A课的人也选择了B课。
+              ...
+              ]
     3.2 推荐选系
         URL: major_predict(function_name)
-        返回: {
-              "major": "major_name"
-              "credit":"c1"
-              "courseid":[course1,course2,course3,...]```当前选系所差学分和课程```
-             }
+        返回: [
+              [major1,credit1],
+              [major2,credit2],
+              ...
+              ```当前选系&所差学分```
+             ]
