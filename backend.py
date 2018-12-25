@@ -106,6 +106,17 @@ def pick_class(CID):
     else:
         return redirect(url_for('login_page'))
 
+@app.route('/about')
+def about_page():
+    return render_template('about.html')
+
+@app.route('/myself')
+def myself_page():
+    return render_template('myself.html')
+
+@app.route('/changePassword')
+def change_page():
+    return render_template('changePassword.html')
 
 @app.route('/withdraw/<CID>')
 def withdraw(CID):
