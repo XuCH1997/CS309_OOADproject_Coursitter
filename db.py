@@ -39,7 +39,7 @@ class conn():
     def get_user_password(self, UID):
         sql = "select t.STUDENT_PASSWORD from OOADPro.STUDENTS t where t.SID = '{}'".format(UID)
         try:
-            result = self.__execute_sql_single(sql)[0]
+            result = self.__execute_sql_single(sql)
         except:
             result = None
         # print(result)
@@ -77,45 +77,86 @@ class conn():
         sql_comb = "SELECT cs.COMBID as COMBID,COURSEID,SUBCOMBID,OP from COMBINATION_COURSE \
         AS cs LEFT JOIN COMBINATION AS c on cs.COMBID = c.COMBID;"
         sql_selected = "SELECT c.CID FROM COURSE AS c JOIN STUDENT_COURSE AS sc \
-        ON c.CID = sc.CID WHERE sc.SID = '{}' and sc.TERM = '{}';".format(UID, TERM)
+        ON c.CID = sc.CID WHERE sc.SID = '{}';".format(UID)
         sql_courselimit = "SELECT c.COURSE_COMB FROM COURSE as c WHERE c.CID = '{}';".format(CID)
         # print(sql_comb+"\n"+sql_selected+"\n"+sql_courselimit)
         limit_comb = self.__execute_sql_single(sql_courselimit)
-        print(limit_comb)
+        # print(limit_comb)
         if limit_comb:
             all_comb = self.__execute_sql(sql_comb)
             selected_course = self.__execute_sql(sql_selected)
-            #print(selected_course)
-            print(all_comb)
+            # print(selected_course)
+            # print(all_comb)
             con_set = []
-            i = 0
-            con_set = self.read_con(all_comb, limit_comb, i, con_set)
-            print(con_set)
+            con_set = self.read_con(all_comb, limit_comb, con_set)
+            # print(con_set)
+            con_part = [[]]
+            split = 0
+            for i in range(len(con_set)):
+                # print(split)
+                if i % 2 == 1:
+                    if str(con_set[i]) == "OR":
+                        split += 1
+                        con_part.append([])
+                    # elif str(con_set[i]) == "AND":
+                    #     print('wait')
+                else:
+                    con_part[split].append(con_set[i])
+            print(con_part)
+            print(selected_course)
+            s_course = []
+            for k in selected_course:
+                s_course.append(str(k[0]))
+            torf = True
+            for item in con_part:
+                for i in item:
+                    if i not in s_course:
+                        torf = False
+                if torf == True:
+                    return 1, "success"
+                torf = True
+            msg = "("
+            for i in con_part:
+                for j in i:
+                    msg += str(j)
+                    if j != i[len(i) - 1]:
+                        msg += " and "
+                msg += ")"
+                if i != con_part[len(con_part) - 1]:
+                    msg += " or ("
+            return 0, "prerequisite: " + msg
         else:
-            return True
+            return 1, "success"
 
-    def read_con(self, all_comb, limit_comb, i, con_set):
+    def read_con(self, all_comb, limit_comb, con_set):
         for item in all_comb:
-            print(item)
+            # print(item)
             if item[0] == limit_comb:
                 if item[2] == None:
-                    con_set[i] = item[1]
-                    i += 1
-                    con_set[i] = item[3]
-                    i += 1
+                    con_set.append(item[1])
+                    con_set.append(item[3])
                 elif item[1] == None:
-                    con_set = self.read_con(all_comb, item[2], i, con_set)
+                    con_set = self.read_con(all_comb, item[2], con_set)
         return con_set
 
     def select_course(self, UID, CID, TERM="2018SPRING"):
-        if self.check_pre(UID, CID, TERM):
-            pass
+        code, msg = self.check_pre(UID, CID, TERM)
+        if code == 1:
+            sql = "INSERT INTO OOADPro.STUDENT_COURSE (SID, CID, TERM) \
+            VALUES ({}, '{}', '{}');".format(UID, CID, TERM)
+            self.__execute_sql(sql)
+            self.commit_change()
+            return msg
+        else:
+            return msg
 
+    def withdraw_course(self, UID, CID, TERM="2018SPRING"):
+        sql = ""
 
-if __name__ == '__main__':
-    a = conn()
-    a.select_course(UID=11510102, CID="CS004")
-    # a.get_user_password(11510102)
-    # print(a.get_all_classes(11510102))
-    # a.get_user_password(11510102)
-    a.close()
+# if __name__ == '__main__':
+#     a = conn()
+#     a.select_course(UID=11510102, CID="CS004")
+#     # a.get_user_password(11510102)
+#     # print(a.get_all_classes(11510102))
+#     # a.get_user_password(11510102)
+#     a.close()
