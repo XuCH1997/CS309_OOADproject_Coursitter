@@ -92,7 +92,7 @@ class conn():
     def select_course(self, UID, CID, TERM="2018SPRING"):
         if self.check_pre(UID, CID, TERM):
             pass
-        
+
 # if __name__ == '__main__':
 #     a = conn()
 #     a.get_user_password(11510102)

@@ -98,7 +98,6 @@ def select_class(CID):
     if 'username' in session:
         UID = session['username']
         a = conn()
-        a.
 
 @app.route('/login')
 @cross_origin()
@@ -113,4 +112,4 @@ def courses_page():
 
 
 if __name__ == '__main__':
-    app.run(port="5000", debug=True)
+    app.run(host="0.0.0.0",port="5000", debug=True)
