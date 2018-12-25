@@ -23,7 +23,7 @@ class conn():
     def __execute_sql_single(self, sql):
         try:
             self.cursor.execute(sql)
-            result = self.cursor.fetchone()
+            result = self.cursor.fetchone()[0]
         except:
             result = None
         return result
@@ -85,17 +85,37 @@ class conn():
         if limit_comb:
             all_comb = self.__execute_sql(sql_comb)
             selected_course = self.__execute_sql(sql_selected)
-            print(selected_course)
+            #print(selected_course)
+            print(all_comb)
+            con_set = []
+            i = 0
+            con_set = self.read_con(all_comb, limit_comb, i, con_set)
+            print(con_set)
         else:
             return True
+
+    def read_con(self, all_comb, limit_comb, i, con_set):
+        for item in all_comb:
+            print(item)
+            if item[0] == limit_comb:
+                if item[2] == None:
+                    con_set[i] = item[1]
+                    i += 1
+                    con_set[i] = item[3]
+                    i += 1
+                elif item[1] == None:
+                    con_set = self.read_con(all_comb, item[2], i, con_set)
+        return con_set
 
     def select_course(self, UID, CID, TERM="2018SPRING"):
         if self.check_pre(UID, CID, TERM):
             pass
 
-# if __name__ == '__main__':
-#     a = conn()
-#     a.get_user_password(11510102)
-#     print(a.get_all_classes(11510102))
-#     a.get_user_password(11510102)
-#     a.close()
+
+if __name__ == '__main__':
+    a = conn()
+    a.select_course(UID=11510102, CID="CS004")
+    # a.get_user_password(11510102)
+    # print(a.get_all_classes(11510102))
+    # a.get_user_password(11510102)
+    a.close()

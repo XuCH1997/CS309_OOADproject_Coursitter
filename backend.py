@@ -68,7 +68,7 @@ def change_password(username, password_old, password_new):
     return jsonify(res)
 
 
-@app.route('/class')
+@app.route('/all_class')
 @cross_origin()
 def all_classes():
     if 'username' in session:
@@ -92,9 +92,9 @@ def schedule():
     else:
         return redirect(url_for('login_page'))
 
-@app.route('/select/<CID>')
+@app.route('/pick/<CID>')
 @cross_origin()
-def select_class(CID):
+def pick_class(CID):
     if 'username' in session:
         UID = session['username']
         a = conn()
