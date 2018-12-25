@@ -170,27 +170,44 @@ span.psw {
   {
     var username = document.getElementById('username_input').value;
     var password = document.getElementById('password_input').value;
-    var url = '119.23.233.0:5000/loginSt/' + username + '/' + password;
+    var url = 'http://119.23.233.0:5000/loginSt/' + username + '/' + password;
     alert(url);
-    try{
-        var response = Get(url);
-        var json_obj = JSON.parse(response);
-        if (json_obj.state == 1){
-            next_url = "courses.html";
-            window.open(next_url, "_self");
+
+    // $.ajax( {
+    //  type : "GET",
+    //  url : url,
+    //  dataType:"json",
+    //  success : function(data) {
+    //   //var object = eval("("+data+")");
+    //   $.each(data.list,function(index,item){
+    //    alert(item.trueName);
+    //   })
+    //  }
+    // });
+        var json_obj = JSON.parse(Get(url));
+        // var info = JSON.stringify(json_obj);
+        // var data = eval('(' + info + ')');
+        // alert(data.district);
+        alert("**********");
+        if (json_obj['state'] === 1){
+            alert(json_obj);
+            alert(json_obj['state']);
+            // next_url = "119.23.233.0:5000/courses.html";
+            // window.location.href = "courses.html";
+            window.open("courses.html", "_self");
         }
         else{
+            alert(json_obj);
+            alert(json_obj["state"]);
             alert("wrong username or password");
         }
     }
-    catch (err) {
-        console.log(err);
-    }
-  }
+
   function Get(yourUrl){
       var Httpreq = new XMLHttpRequest(); // a new request
-      Httpreq.open("GET",yourUrl,true);
+      Httpreq.open("GET",yourUrl,false);
       Httpreq.send(null);
+      // window.alert(Httpreq.responseText);
       return Httpreq.responseText;
   }
 
