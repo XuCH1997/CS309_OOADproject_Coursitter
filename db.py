@@ -85,11 +85,16 @@ class conn():
         if limit_comb:
             all_comb = self.__execute_sql(sql_comb)
             selected_course = self.__execute_sql(sql_selected)
-            #print(selected_course)
+            # print(selected_course)
             print(all_comb)
             con_set = []
             con_set = self.read_con(all_comb, limit_comb, con_set)
-            print(con_set)
+            # print(con_set)
+            con_part = []
+            for i in range(len(con_set)):
+                if con_set[i] == 'OR' and con_set[i - 2] != 'AND':
+                    con_part.append(set(con_set[i - 1]))
+
         else:
             return True
 
