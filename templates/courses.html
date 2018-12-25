@@ -178,7 +178,7 @@
       <td style="">专业核心课</td>
       <td style="">选修</td>-->
         <td>
-            <a href="#" onclick="pick_withdraw(this.parentElement);">选课</a>
+            <a href="#" onclick="pick_withdraw(this);">选课</a>
         </td>
     </tr>
     </tbody>
@@ -259,34 +259,39 @@
         last_cell.setAttribute('id',newRow.rowIndex);
         // alert(last_cell.getAttribute('id').toString());
         bodyObj.rows[0].style.display = "none"; // hide the first row
+        // alert("new_row" + newRow.innerHTML);
     }
 
     function pick_withdraw(content)
     {
+        // alert("---------------" + content.innerHTML);
+        // alert(content.parentElement.innerHTML + "------------");
         if(content.innerHTML === "选课")
         {
-            var table_row = document.getElementById('tr' + content.getAttribute('id'));
-            alert('tr' + content.getAttribute('id'));
+            var table_row = content.parentElement.parentElement;
             var course_id = table_row.cells[0].innerHTML;
             var url = "http://119.23.233.0:5000/" + "pick/" + course_id;
             var result = Get(url);
-            alert(result);
             if(result === "success")
             {
+                alert("选课 success!");
                 content.innerHTML = "退课";
             }
-        }
-        else if(content.innerHTML === "选课")
-        {
-            var table_row = document.getElementById('tr' + content.getAttribute('id'));
-            var course_id = table_row.cells[0].innerHTML;
-            var url = "http://119.23.233.0:5000/" + "with_withdraw/" + course_id;
-            var result = Get(url);
-            alert(result);
-            if(result === "success")
+            else
             {
-                content.innerHTML = "选课";
+                alert("选课失败:" + result);
             }
+        }
+        else if(content.innerHTML === "退课")
+        {
+            var table_row = content.parentElement.parentElement;
+            var course_id = table_row.cells[0].innerHTML;
+            var url = "http://119.23.233.0:5000/" + "withdraw/" + course_id;
+            // alert("退课url-----" + url);
+            var result = Get(url);
+            
+            alert("退课success!");
+            content.innerHTML = "选课";
         }
         else
         {
