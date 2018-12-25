@@ -1,4 +1,4 @@
-api 1.0
+api 2.0
 ```
 所有api方法皆为访问 URL/{function_name}/{parameters1}/{parameters2}/...
 比如：访问 www.baidu.com/Login/11510102/abc123 
@@ -7,6 +7,12 @@ api 1.0
 0 General
     大部分方法返回值中 ‘1’ 代表成功 ‘0’ 代表失败。
     例如： 在访问 ../Login/11510102/abc123 后，后端返回：{"state":"0"}代表登陆失败
+
+    ***********界面URL************
+    主页: /home
+    登录：/login
+    选课界面：/courses
+
 
 1 登陆界面
     1.1 学生登陆
@@ -27,18 +33,21 @@ api 1.0
 2 选课界面
     2.1 学生查看当前所有可选课程
         URL: all_class(function_name)
-        返回: {"state":"0/1",
-              "class_name":[class1,class2,class3,...],
-              "class_time":[time1,time2,time3,...],
-              "teacher":[teacher1,teacher2,teacher3,...]
-              ...:...
-              }
+        返回: [
+            [课程编号，课程名称，课容量，课时，开课院系，上课时间，上课教师，上课地点，开课学期]，
+            [],
+            []...
+        ]
     2.2 显示学生当前课表
-        URL: schedule...(以下同上)
+        URL: schedule
+        返回：[
+            [课程名称，上课地点，上课时间，上课教师]
+        ]
     2.4 选课&退课
-        URL: pick OR withdraw(function_name)/user_name/courseid
-        返回: {"state":"0/1",'message':''}
+        URL: pick OR withdraw(function_name)/courseid(para)
+        返回: {"an message here"}
 
+↓###还没做好###↓
 3 features
     3.1 课程推荐
         URL: suggestion(function_name)
