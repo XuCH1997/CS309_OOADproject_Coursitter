@@ -130,21 +130,25 @@ def pick_class(CID):
 
 
 @app.route('/about')
+@cross_origin()
 def about_page():
     return render_template('about.html')
 
 
 @app.route('/myself')
+@cross_origin()
 def myself_page():
     return render_template('myself.html')
 
 
 @app.route('/changePassword')
+@cross_origin()
 def change_page():
     return render_template('changePassword.html')
 
 
 @app.route('/withdraw/<CID>')
+@cross_origin()
 def withdraw(CID):
     if 'username' in session:
         UID = session['username']
@@ -157,6 +161,7 @@ def withdraw(CID):
 
 
 @app.route('/reco_list')
+@cross_origin()
 def reco_list():
     if 'username' in session:
         a = conn()
@@ -174,8 +179,21 @@ def reco_list():
         return jsonify(final_list)
     return redirect(url_for('login_page'))
 
+@app.route('/major_info')
+@cross_origin()
+def major_info():
+    if 'username' in session:
+        a = conn()
+        try:
+            temp = a.major_info(session['username'])
+        except:
+            temp = "Oops! It seems no recommendation here."
+        a.close()
+        return jsonify(temp)
+    return redirect(url_for('login_page'))
 
 @app.route('/recommendation')
+@cross_origin()
 def recommendation():
     if 'username' in session:
         a = conn()

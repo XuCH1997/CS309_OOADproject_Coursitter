@@ -223,6 +223,18 @@ class conn():
         self.__execute_sql(sql2)
         self.commit_change()
 
+    def major_info(self,UID):
+        try:
+            sql1 = "SELECT * FROM RECO_MAJOR as rm WHERE rm.SID = '{}';".format(UID)
+            temp = self.__execute_sql(sql1)
+            res = []
+            for item in temp:
+                remain_cre = int(item[2])-int(item[3])
+                res.append([item[1],remain_cre])
+        except:
+            res = None
+        return res
+
 # if __name__ == '__main__':
 #     a = conn()
 #     print(a.r_choose_one_course(11510102))
