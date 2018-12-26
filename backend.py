@@ -15,11 +15,13 @@ CORS(app)
 def home():
     return render_template('mainpage.html')
 
+
 @app.errorhandler(404)
 @cross_origin()
 def page_not_found(e):
     # note that we set the 404 status explicitly
     return jsonify(404)
+
 
 @app.route('/grade')
 @cross_origin()
@@ -31,6 +33,7 @@ def grade_query():
         return jsonify(res)
     return redirect(url_for('login_page'))
 
+
 @app.route('/selected')
 @cross_origin()
 def selected_course():
@@ -40,6 +43,7 @@ def selected_course():
         a.close()
         return jsonify(res)
     return redirect(url_for('login_page'))
+
 
 @app.route('/loginSt/<username>/<password>', methods=['GET', 'POST'])
 @cross_origin()
@@ -151,17 +155,38 @@ def withdraw(CID):
     else:
         return redirect(url_for('login_page'))
 
+
+@app.route('/reco_list')
+def reco_list():
+    if 'username' in session:
+        a = conn()
+        try:
+            msg, temp, prob = a.show_reco(session['username'])
+            res_list = a.get_course_info(temp)
+            final_list = []
+            for i in res_list:
+                final_list.append(i)
+            final_list.append(prob)
+        except:
+            msg = "Oops! It seems no recommendation here."
+            final_list = None
+        a.close()
+        return jsonify(final_list)
+    return redirect(url_for('login_page'))
+
+
 @app.route('/recommendation')
 def recommendation():
     if 'username' in session:
         a = conn()
         try:
-            msg = a.show_reco(session['username'])
+            msg, temp, prob = a.show_reco(session['username'])
         except:
             msg = "Oops! It seems no recommendation here."
         a.close()
         return jsonify(msg)
     return redirect(url_for('login_page'))
+
 
 @app.route('/login')
 @cross_origin()

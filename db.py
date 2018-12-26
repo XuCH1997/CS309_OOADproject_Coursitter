@@ -25,7 +25,7 @@ class conn():
         try:
             self.cursor.execute(sql)
             result = self.cursor.fetchone()[0]
-            #self.cursor.fetchall()
+            # self.cursor.fetchall()
         except:
             result = None
         return result
@@ -183,13 +183,19 @@ class conn():
         SELECT sc2.SID FROM STUDENT_COURSE as sc2 WHERE sc2.CID = '{}')and \
         sc1.CID!= '{}' GROUP BY sc1.CID;".format(CID, CID)
         res = self.__execute_sql(sql1)
-        #print(CID)
+        # print(CID)
         sql2 = "SELECT c.SELECTED_NUMBER FROM COURSE as c WHERE c.CID = '{}';".format(CID)
         total_num = (self.__execute_sql(sql2)[0][0])
-        #print(total_num)
-        msg = "{}% of people who choose {} also choose {}!".format(str(float(total_num)/float(res[0][1])),CID,str(res[0][0]))
-        #print(msg)
-        return msg
+        # print(total_num)
+        msg = "{}% of people who choose {} also choose {}!".format(str(100 * float(res[0][1]) / float(total_num)), CID,
+                                                                   str(res[0][0]))
+        # print(msg)
+        return msg, str(res[0][0]), str(100 * float(res[0][1]) / float(total_num))
+
+    def get_course_info(self, CID):
+        sql = "SELECT c.CID,c.COURSE_NAME,c.TEACHER FROM COURSE as c WHERE CID = '{}';".format(CID)
+        res = self.__execute_sql(sql)
+        return res
 
     def select_course(self, UID, CID, TERM="2018SPRING"):
         code, msg = self.check_pre(UID, CID, TERM)
@@ -217,13 +223,12 @@ class conn():
         self.__execute_sql(sql2)
         self.commit_change()
 
-
-if __name__ == '__main__':
-    a = conn()
-    print(a.r_choose_one_course(11510102))
-    # a.select_course(UID=11510102, CID="CS004")
-    # a.get_user_password(11510102)
-    # a.check_full(CID='CS004')
-    # print(a.get_all_classes(11510102))
-    # a.get_user_password(11510102)
-    a.close()
+# if __name__ == '__main__':
+#     a = conn()
+#     print(a.r_choose_one_course(11510102))
+#     # a.select_course(UID=11510102, CID="CS004")
+#     # a.get_user_password(11510102)
+#     # a.check_full(CID='CS004')
+#     # print(a.get_all_classes(11510102))
+#     # a.get_user_password(11510102)
+#     a.close()
