@@ -79,6 +79,14 @@ class conn():
         self.commit_change()
         return result
 
+    def get_selected(self,UID):
+        sql = "SELECT c.CID,c.COURSE_NAME,c.COURSE_CAP,c.COURSE_DUR,\
+        c.COURSE_MAJOR,c.COURSE_TIME,c.CREDITS,c.SELECTED_NUMBER,\
+        c.TEACHER,c.COURSE_LOC,c.COURSE_TERM FROM STUDENT_COURSE as st JOIN COURSE as c\
+        on c.CID = st.CID WHERE st.SID = '{}';".format(UID)
+        res = self.__execute_sql(sql)
+        return res
+
     def check_pre(self, UID, CID, TERM="2018SPRING"):
         sql_comb = "SELECT cs.COMBID as COMBID,COURSEID,SUBCOMBID,OP from COMBINATION_COURSE \
         AS cs LEFT JOIN COMBINATION AS c on cs.COMBID = c.COMBID;"

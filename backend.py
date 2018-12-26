@@ -31,6 +31,16 @@ def grade_query():
         return jsonify(res)
     return redirect(url_for('login_page'))
 
+@app.route('/selected')
+@cross_origin()
+def selected_course():
+    if 'username' in session:
+        a = conn()
+        res = a.get_selected(session['username'])
+        a.close()
+        return jsonify(res)
+    return redirect(url_for('login_page'))
+
 @app.route('/loginSt/<username>/<password>', methods=['GET', 'POST'])
 @cross_origin()
 def loginSt(username, password):
