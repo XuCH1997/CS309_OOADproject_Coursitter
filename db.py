@@ -175,9 +175,10 @@ class conn():
                 c.SELECTED_NUMBER=c.SELECTED_NUMBER+1 WHERE CID = '{}';".format(CID)
                 self.__execute_sql(sql2)
                 self.commit_change()
+                return "success"
             else:
                 msg += "  ** The course is full **"
-            return msg
+                return msg
         else:
             return msg
 
@@ -189,11 +190,11 @@ class conn():
         self.__execute_sql(sql2)
         self.commit_change()
 
-if __name__ == '__main__':
-    a = conn()
-    # a.select_course(UID=11510102, CID="CS004")
-    # a.get_user_password(11510102)
-    a.check_full(CID='CS004')
-    # print(a.get_all_classes(11510102))
-    # a.get_user_password(11510102)
-    a.close()
+# if __name__ == '__main__':
+#     a = conn()
+#     # a.select_course(UID=11510102, CID="CS004")
+#     # a.get_user_password(11510102)
+#     a.check_full(CID='CS004')
+#     # print(a.get_all_classes(11510102))
+#     # a.get_user_password(11510102)
+#     a.close()
