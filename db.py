@@ -140,7 +140,7 @@ class conn():
                     msg += " or ("
             return 0, "Fail, prerequisite: " + msg
         else:
-            return 1, "success"
+            return 1, "Fulfill the prerequisite."
 
     def read_con(self, all_comb, limit_comb, con_set):
         for item in all_comb:
