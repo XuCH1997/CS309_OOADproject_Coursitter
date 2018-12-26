@@ -205,10 +205,24 @@ class conn():
                 sql1 = "INSERT INTO OOADPro.STUDENT_COURSE (SID, CID, TERM) \
                 VALUES ({}, '{}', '{}');".format(UID, CID, TERM)
                 self.__execute_sql(sql1)
+                sql_n = "SELECT c.SELECTED_NUMBER,c.CREDITS FROM COURSE AS c WHERE c.CID = '{}';".format(CID)
+                try:
+                    temp = self.__execute_sql(sql_n)
+                    num = temp[0][0]
+                    cre = temp[0][1]
+                except:
+                    num = None
+                    cre = 0
+                #print(num)
+                if num == 0:
+                    msg_temp = "ID:{} first select the course: {}!".format(UID,CID)
+                    sql_temp = "INSERT INTO TIPS VALUES ('{}');".format(msg_temp)
+                    self.__execute_sql(sql_temp)
                 sql2 = "UPDATE COURSE as c SET \
                 c.SELECTED_NUMBER=c.SELECTED_NUMBER+1 WHERE CID = '{}';".format(CID)
                 self.__execute_sql(sql2)
                 self.commit_change()
+                self.auto_fix_major(UID,cre,0)
                 return "success"
             else:
                 msg += "  ** The course is full **"
@@ -221,8 +235,22 @@ class conn():
         self.__execute_sql(sql1)
         sql2 = "UPDATE COURSE as c SET \
         c.SELECTED_NUMBER=c.SELECTED_NUMBER-1 WHERE CID = '{}';".format(CID)
+        sql_n = "SELECT c.CREDITS FROM COURSE AS c WHERE c.CID = '{}';".format(CID)
+        try:
+            temp = self.__execute_sql(sql_n)
+            #num = temp[0][0]
+            cre = temp[0][0]
+        except:
+            #num = None
+            cre = 0
+        self.auto_fix_major(UID,cre,1)
         self.__execute_sql(sql2)
         self.commit_change()
+
+    def tips_info(self):
+        sql = "SELECT * FROM TIPS;"
+        res = self.__execute_sql(sql)
+        return res
 
     def major_info(self,UID):
         try:
@@ -236,12 +264,25 @@ class conn():
             res = None
         return res
 
-# if __name__ == '__main__':
-#     a = conn()
-#     print(a.show_reco(11510102))
-#     # a.select_course(UID=11510102, CID="CS004")
-#     # a.get_user_password(11510102)
-#     # a.check_full(CID='CS004')
-#     # print(a.get_all_classes(11510102))
-#     # a.get_user_password(11510102)
-#     a.close()
+    def auto_fix_major(self,UID,CRE,stat,MAJOR = 'CS'):
+        if stat == 0:#0 for add
+            sql = "UPDATE RECO_MAJOR as rm SET \
+            rm.CURRENT = rm.CURRENT+{} where rm.SID = '{}' and rm.MAJOR_ID = '{}';".format(CRE,UID,MAJOR)
+            self.__execute_sql(sql)
+            self.commit_change()
+        elif stat == 1: #1 for delete
+            sql = "UPDATE RECO_MAJOR as rm SET \
+            rm.CURRENT = rm.CURRENT-{} where rm.SID = '{}' and rm.MAJOR_ID = '{}';".format(CRE,UID,MAJOR)
+            self.__execute_sql(sql)
+            self.commit_change()
+
+if __name__ == '__main__':
+    a = conn()
+    a.select_course(11510102,'CS001')
+    #print(a.show_reco(11510102))
+    # a.select_course(UID=11510102, CID="CS004")
+    # a.get_user_password(11510102)
+    # a.check_full(CID='CS004')
+    # print(a.get_all_classes(11510102))
+    # a.get_user_password(11510102)
+    a.close()

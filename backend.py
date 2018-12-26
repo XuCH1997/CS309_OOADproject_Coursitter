@@ -129,6 +129,14 @@ def pick_class(CID):
         return redirect(url_for('login_page'))
 
 
+@app.route('/tips')
+def tips():
+    a = conn()
+    msg = a.tips_info()
+    a.close()
+    return jsonify(msg)
+
+
 @app.route('/about')
 @cross_origin()
 def about_page():
