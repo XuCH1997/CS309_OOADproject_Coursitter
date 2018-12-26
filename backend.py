@@ -120,7 +120,7 @@ def pick_class(CID):
         a = conn()
         msg = a.select_course(UID, CID)
         a.close()
-        return msg
+        return jsonify(msg)
     else:
         return redirect(url_for('login_page'))
 
@@ -158,6 +158,7 @@ def recommendation():
         msg = a.show_reco(session['username'])
         a.close()
         return jsonify(msg)
+    return redirect(url_for('login_page'))
 
 @app.route('/login')
 @cross_origin()

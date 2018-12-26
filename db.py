@@ -25,7 +25,7 @@ class conn():
         try:
             self.cursor.execute(sql)
             result = self.cursor.fetchone()[0]
-            self.cursor.fetchall()
+            #self.cursor.fetchall()
         except:
             result = None
         return result
@@ -218,12 +218,12 @@ class conn():
         self.commit_change()
 
 
-# if __name__ == '__main__':
-#     a = conn()
-#     a.show_reco(11510102)
-#     # a.select_course(UID=11510102, CID="CS004")
-#     # a.get_user_password(11510102)
-#     # a.check_full(CID='CS004')
-#     # print(a.get_all_classes(11510102))
-#     # a.get_user_password(11510102)
-#     a.close()
+if __name__ == '__main__':
+    a = conn()
+    print(a.r_choose_one_course(11510102))
+    # a.select_course(UID=11510102, CID="CS004")
+    # a.get_user_password(11510102)
+    # a.check_full(CID='CS004')
+    # print(a.get_all_classes(11510102))
+    # a.get_user_password(11510102)
+    a.close()
