@@ -171,7 +171,7 @@ def reco_list():
             msg = "Oops! It seems no recommendation here."
             final_list = None
         a.close()
-        return final_list
+        return jsonify(final_list)
     return redirect(url_for('login_page'))
 
 
