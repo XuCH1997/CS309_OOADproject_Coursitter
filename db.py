@@ -180,8 +180,9 @@ class conn():
     def show_reco(self, UID):
         CID = str(self.r_choose_one_course(UID))
         sql1 = "SELECT sc1.CID,count(*) FROM STUDENT_COURSE as sc1 WHERE sc1.SID in (\
-        SELECT sc2.SID FROM STUDENT_COURSE as sc2 WHERE sc2.CID = '{}')and \
-        sc1.CID!= '{}' GROUP BY sc1.CID;".format(CID, CID)
+        SELECT sc2.SID FROM STUDENT_COURSE as sc2 WHERE sc2.CID = '{}')and sc1.CID\
+         not in (SELECT sc3.CID FROM STUDENT_COURSE sc3 WHERE sc3.SID = '{}'\
+        ) GROUP BY sc1.CID;".format(CID, UID)
         res = self.__execute_sql(sql1)
         # print(CID)
         sql2 = "SELECT c.SELECTED_NUMBER FROM COURSE as c WHERE c.CID = '{}';".format(CID)
@@ -237,7 +238,7 @@ class conn():
 
 # if __name__ == '__main__':
 #     a = conn()
-#     print(a.r_choose_one_course(11510102))
+#     print(a.show_reco(11510102))
 #     # a.select_course(UID=11510102, CID="CS004")
 #     # a.get_user_password(11510102)
 #     # a.check_full(CID='CS004')

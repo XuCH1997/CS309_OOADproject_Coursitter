@@ -124,7 +124,7 @@ def pick_class(CID):
         a = conn()
         msg = a.select_course(UID, CID)
         a.close()
-        return jsonify(msg)
+        return msg
     else:
         return redirect(url_for('login_page'))
 
