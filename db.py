@@ -124,7 +124,7 @@ class conn():
                 msg += ")"
                 if i != con_part[len(con_part) - 1]:
                     msg += " or ("
-            return 0, "prerequisite: " + msg
+            return 0, "Fail, prerequisite: " + msg
         else:
             return 1, "success"
 
@@ -139,25 +139,48 @@ class conn():
                     con_set = self.read_con(all_comb, item[2], con_set)
         return con_set
 
+    def check_cap(self, CID):
+        sql = "SELECT c.COURSE_CAP,c.SELECTED_NUMBER FROM COURSE as c WHERE CID = '{}'".format(CID)
+        res = self.__execute_sql(sql)
+        # print(res)
+        max_cap = res[0][0]
+        current_n = res[0][1]
+        if current_n < max_cap:
+            return True
+        else:
+            return False
+
     def select_course(self, UID, CID, TERM="2018SPRING"):
         code, msg = self.check_pre(UID, CID, TERM)
         if code == 1:
-            sql = "INSERT INTO OOADPro.STUDENT_COURSE (SID, CID, TERM) \
-            VALUES ({}, '{}', '{}');".format(UID, CID, TERM)
-            self.__execute_sql(sql)
-            self.commit_change()
+            if self.check_cap(CID):
+                sql1 = "INSERT INTO OOADPro.STUDENT_COURSE (SID, CID, TERM) \
+                VALUES ({}, '{}', '{}');".format(UID, CID, TERM)
+                self.__execute_sql(sql1)
+                sql2 = "UPDATE COURSE as c SET \
+                c.SELECTED_NUMBER=c.SELECTED_NUMBER+1 WHERE CID = '{}';".format(CID)
+                self.__execute_sql(sql2)
+                self.commit_change()
+            else:
+                msg += "  ** The course is full **"
             return msg
         else:
             return msg
 
     def withdraw_course(self, UID, CID, TERM="2018SPRING"):
-        sql = "DELETE FROM STUDENT_COURSE WHERE SID = '{}' and CID = '{}' and TERM = '{}'".format(UID, CID, TERM)
-        self.__execute_sql(sql)
+        sql1 = "DELETE FROM STUDENT_COURSE WHERE SID = '{}' and CID = '{}' and TERM = '{}'".format(UID, CID, TERM)
+        self.__execute_sql(sql1)
+        sql2 = "UPDATE COURSE as c SET \
+        c.SELECTED_NUMBER=c.SELECTED_NUMBER-1 WHERE CID = '{}';".format(CID)
+        self.__execute_sql(sql2)
         self.commit_change()
-# if __name__ == '__main__':
-#     a = conn()
-#     a.select_course(UID=11510102, CID="CS004")
-#     # a.get_user_password(11510102)
-#     # print(a.get_all_classes(11510102))
-#     # a.get_user_password(11510102)
-#     a.close()
+
+
+if __name__ == '__main__':
+    a = conn()
+    # a.select_course(UID=11510102, CID="CS004")
+    # a.get_user_password(11510102)
+    a.check_full(CID='CS004')
+    # print(a.get_all_classes(11510102))
+    # a.get_user_password(11510102)
+    a.close()
