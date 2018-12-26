@@ -189,7 +189,6 @@ class conn():
         self.__execute_sql(sql2)
         self.commit_change()
 
-
 if __name__ == '__main__':
     a = conn()
     # a.select_course(UID=11510102, CID="CS004")

@@ -118,8 +118,7 @@ def pick_class(CID):
     if 'username' in session:
         UID = session['username']
         a = conn()
-        msg = a.se11lect_course(UID, CID)
-
+        msg = a.select_course(UID, CID)
         a.close()
         return msg
     else:
