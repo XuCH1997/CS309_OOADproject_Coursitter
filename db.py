@@ -127,7 +127,7 @@ class conn():
                     if i not in s_course:
                         torf = False
                 if torf == True:
-                    return 1, "success"
+                    return 1, "Fulfill the prerequisite."
                 torf = True
             msg = "("
             for i in con_part:
