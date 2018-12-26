@@ -118,44 +118,47 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
-        <td>开课单位:</td>
+        <td>Department:</td>
         <td>
             <select id="xx0301id" name="xx0301id">
-                <option value="">--请选择--</option>
+                <option value="">-----------Select----------</option>
 
-                <option value="8N6HtIeUIX">[001]通识与学科基础部</option>
-
-                <option value="007">[007]网络通识课程部</option>
+                <option value="8N6HtIeUIX">Biology</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="cs">Computer Science</option>
+                <option value="economics">Economics</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="007">Physics</option>
             </select>
         </td>
     </tr>
     <tr>
-        <td>课程号:</td>
+        <td>Course ID:</td>
         <td><input type="text" id="kch" name="kch" value=""/></td>
     </tr>
     <tr>
-        <td>课程名称:</td>
+        <td>Course Name:</td>
         <td><input type="text" id="kcmc" name="kcmc" value=""/></td>
     </tr>
 </table>
 
-
+<button style="margin-left: 11%;" type="button" onclick="queryCourses()">Query</button>
 
 
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="Nsb_r_list Nsb_table">
     <tr>
-        <th class="Nsb_r_list_thb" scope="col">编号</th>
-        <th class="Nsb_r_list_thb" scope="col">名称</th>
-        <th class="Nsb_r_list_thb" scope="col">容量</th>
-        <th class="Nsb_r_list_thb" scope="col">学时</th>
-        <th class="Nsb_r_list_thb" scope="col">院系</th>
-        <th class="Nsb_r_list_thb" scope="col">时间</th>
-        <th class="Nsb_r_list_thb" scope="col">学分</th>
-        <th class="Nsb_r_list_thb" scope="col">已选人数</th>
-        <th class="Nsb_r_list_thb" scope="col">老师</th>
-        <th class="Nsb_r_list_thb" scope="col">地点</th>
-        <th class="Nsb_r_list_thb" scope="col">操作</th>
+        <th class="Nsb_r_list_thb" scope="col">Course ID</th>
+        <th class="Nsb_r_list_thb" scope="col">Course Name</th>
+        <th class="Nsb_r_list_thb" scope="col">Capacity</th>
+        <th class="Nsb_r_list_thb" scope="col">Period/hour</th>
+        <th class="Nsb_r_list_thb" scope="col">Department</th>
+        <th class="Nsb_r_list_thb" scope="col">Time</th>
+        <th class="Nsb_r_list_thb" scope="col">Credit</th>
+        <th class="Nsb_r_list_thb" scope="col">Selected</th>
+        <th class="Nsb_r_list_thb" scope="col">Teacher</th>
+        <th class="Nsb_r_list_thb" scope="col">Location</th>
+        <th class="Nsb_r_list_thb" scope="col">Option</th>
         <!--     <th class="Nsb_r_list_thb"  scope="col">课程类别</th>
             <th class="Nsb_r_list_thb"  scope="col">课程性质</th>
             <th class="Nsb_r_list_thb"  scope="col">课程属性</th>-->
@@ -165,27 +168,27 @@
 
     <tbody id="tbody_all_courses" style="display: none;">
     <tr>
-        <td style="">MA301</td>
-        <td style="">实变函数</td>
-        <td style="">100</td>
-        <td style="">48</td>
-        <td style="">数学系</td>
-        <td style="">1,3,5</td>
-        <td style="">3</td>
-        <td style="">48</td>
-        <td style="">buzhidao</td>
-        <td style="">liyuan</td>
+        <td style="">#</td>
+        <td style="">#</td>
+        <td style="">#</td>
+        <td style="">#</td>
+        <td style="">#</td>
+        <td style="">#</td>
+        <td style="">#</td>
+        <td style="">#</td>
+        <td style="">#</td>
+        <td style="">#</td>
         <!--     <td style="">理论课（不含实践）</td>
       <td style="">专业核心课</td>
       <td style="">选修</td>-->
         <td>
-            <a href="#" onclick="pick_withdraw(this);">选课</a>
+            <a href="#" onclick="pick_withdraw(this);">Select</a>
         </td>
     </tr>
     </tbody>
 
     <tr>
-        <td colspan="16">未查询到数据</td>
+        <td colspan="16">No more data!</td>
     </tr>
 
 </table>
@@ -267,7 +270,7 @@
     {
         // alert("---------------" + content.innerHTML);
         // alert(content.parentElement.innerHTML + "------------");
-        if(content.innerHTML === "选课")
+        if(content.innerHTML === "Select")
         {
             var table_row = content.parentElement.parentElement;
             var course_id = table_row.cells[0].innerHTML;
@@ -275,15 +278,15 @@
             var result = Get(url);
             if(result === "success")
             {
-                alert("选课 success!");
-                content.innerHTML = "退课";
+                alert("Select " + course_id + " success!");
+                content.innerHTML = "Drop";
             }
             else
             {
-                alert("选课失败:" + result);
+                alert("Select :" + course_id + "fail: " + result);
             }
         }
-        else if(content.innerHTML === "退课")
+        else if(content.innerHTML === "Drop")
         {
             var table_row = content.parentElement.parentElement;
             var course_id = table_row.cells[0].innerHTML;
@@ -291,8 +294,8 @@
             // alert("退课url-----" + url);
             var result = Get(url);
             
-            alert("退课success!");
-            content.innerHTML = "选课";
+            alert("Drop " + course_id + " success!");
+            content.innerHTML = "Select";
         }
         else
         {
