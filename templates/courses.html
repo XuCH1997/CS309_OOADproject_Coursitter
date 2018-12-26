@@ -59,7 +59,7 @@
                     <div class="menu_wrapper">
                         <nav id="menu" class="menu-main-menu-container">
                             <ul id="menu-main-menu" class="menu">
-                                
+
                                 <li class="current_page_item">
                                     <a href="#"><span>Courses</span></a>
                                 </li>
@@ -67,10 +67,10 @@
                                     <a href="myself"><span>Myself</span></a>
                                 </li>
                                 <li>
-                                    <a href="http:about"><span>About</span></a>
+                                    <a href="about"><span>About</span></a>
                                 </li>
-								<li>
-                                    <a href="/"><span>Exit</span></a>
+                                <li>
+                                    <a href="logout"><span>Exit</span></a>
                                 </li>
                             </ul>
                         </nav>
@@ -120,25 +120,25 @@
     <tr>
         <td>Department:</td>
         <td>
-            <select id="xx0301id" name="xx0301id">
-                <option value="">-----------Select----------</option>
+            <select id="query_department" name="xx0301id">
+                <option value="Select">-----------Select----------</option>
 
-                <option value="8N6HtIeUIX">Biology</option>
-                <option value="chemistry">Chemistry</option>
-                <option value="cs">Computer Science</option>
-                <option value="economics">Economics</option>
-                <option value="mathematics">Mathematics</option>
-                <option value="007">Physics</option>
+                <option value="Biology">Biology</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Cs">Computer Science</option>
+                <option value="Economics">Economics</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Physics">Physics</option>
             </select>
         </td>
     </tr>
     <tr>
         <td>Course ID:</td>
-        <td><input type="text" id="kch" name="kch" value=""/></td>
+        <td><input type="text" id="query_course_id" name="kch" value=""/></td>
     </tr>
     <tr>
         <td>Course Name:</td>
-        <td><input type="text" id="kcmc" name="kcmc" value=""/></td>
+        <td><input type="text" id="query_course_name" name="kcmc" value=""/></td>
     </tr>
 </table>
 
@@ -146,7 +146,7 @@
 
 
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="Nsb_r_list Nsb_table">
+<table id="all_class_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="Nsb_r_list Nsb_table">
     <tr>
         <th class="Nsb_r_list_thb" scope="col">Course ID</th>
         <th class="Nsb_r_list_thb" scope="col">Course Name</th>
@@ -199,6 +199,262 @@
 
 
 <script type="text/javascript">
+    function queryCourses()
+    {
+        var dictionary = {
+            '1': 'Monday 08:00 - 09:50',
+            '2': 'Monday 10:20 - 12:10',
+            '3': 'Monday 14:00 - 15:50',
+            '4': 'Monday 16:20 - 18:10',
+            '5': 'Monday 19:00 - 20:50',
+
+            '6': 'Tuesday 08:00 - 09:50',
+            '7': 'Tuesday 10:20 - 12:10',
+            '8': 'Tuesday 14:00 - 15:50',
+            '9': 'Tuesday 16:20 - 18:10',
+            '10': 'Tuesday 19:00 - 20:50',
+
+            '11': 'Wednesday 08:00 - 09:50',
+            '12': 'Wednesday 10:20 - 12:10',
+            '13': 'Wednesday 14:00 - 15:50',
+            '14': 'Wednesday 16:20 - 18:10',
+            '15': 'Wednesday 19:00 - 20:50',
+
+            '16': 'Thursday 08:00 - 09:50',
+            '17': 'Thursday 10:20 - 12:10',
+            '18': 'Thursday 14:00 - 15:50',
+            '19': 'Thursday 16:20 - 18:10',
+            '20': 'Thursday 19:00 - 20:50',
+
+            '21': 'Friday 08:00 - 09:50',
+            '22': 'Friday 10:20 - 12:10',
+            '23': 'Friday 14:00 - 15:50',
+            '24': 'Friday 16:20 - 18:10',
+            '25': 'Friday 19:00 - 20:50',
+
+            '26': 'Saturday 08:00 - 09:50',
+            '27': 'Saturday 10:20 - 12:10',
+            '28': 'Saturday 14:00 - 15:50',
+            '29': 'Saturday 16:20 - 18:10',
+            '30': 'Saturday 19:00 - 20:50',
+        };
+
+        var table = document.getElementById("all_class_table");
+        //or use :  var table = document.all.tableid;
+        // alert(table.rows.length);
+        for(var i = table.rows.length; i > 2; i--)
+        {
+            table.deleteRow(i - 1);
+        }
+        // alert(table.rows.length);
+        var course_id = document.getElementById("query_course_id").value.toLowerCase();
+        var course_name = document.getElementById("query_course_name").value.toLowerCase();
+        var select_options = document.getElementById("query_department");
+        var department = select_options.options[select_options.selectedIndex].value.toLowerCase();
+        // alert(department + ' ' + course_id + ' ' + course_name);
+
+        var url = "http://119.23.233.0:5000/all_class"
+        var json_obj = JSON.parse(Get(url));
+        // alert(course_id);
+
+        if(course_id === "")
+        {
+            if(course_name === "")
+            {
+                if(department === "select")
+                {
+
+                    var i;
+                    for(i = 0; i < json_obj.length; i++)
+                    {
+                        var v0 = json_obj[i][0];
+                        var v1 = json_obj[i][1];
+                        var v2 = json_obj[i][2];
+                        var v3 = json_obj[i][3];
+                        var v4 = json_obj[i][4];
+                        var v5 = json_obj[i][5];
+                        var v6 = json_obj[i][6];
+                        var v7 = json_obj[i][7];
+                        var v8 = json_obj[i][8];
+                        var v9 = json_obj[i][9];
+                        addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary);
+                    }
+                }
+                else
+                {
+                    var i;
+                    for(i = 0; i < json_obj.length; i++)
+                    {
+                        var v4 = json_obj[i][4].toLowerCase();
+                        if(v4.includes(department))
+                        {
+                            var v0 = json_obj[i][0];
+                            var v1 = json_obj[i][1];
+                            var v2 = json_obj[i][2];
+                            var v3 = json_obj[i][3];
+                            var v4 = json_obj[i][4];
+                            var v5 = json_obj[i][5];
+                            var v6 = json_obj[i][6];
+                            var v7 = json_obj[i][7];
+                            var v8 = json_obj[i][8];
+                            var v9 = json_obj[i][9];
+                            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if(department === "select")
+                {
+                    var i;
+                    for(i = 0; i < json_obj.length; i++)
+                    {
+                        var v1 = json_obj[i][1].toLowerCase();
+                        if(v1.includes(course_name))
+                        {
+                            var v0 = json_obj[i][0];
+                            var v1 = json_obj[i][1];
+                            var v2 = json_obj[i][2];
+                            var v3 = json_obj[i][3];
+                            var v4 = json_obj[i][4];
+                            var v5 = json_obj[i][5];
+                            var v6 = json_obj[i][6];
+                            var v7 = json_obj[i][7];
+                            var v8 = json_obj[i][8];
+                            var v9 = json_obj[i][9];
+                            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary);
+                        }
+                    }
+                }
+                else
+                {
+                    var i;
+                    for(i = 0; i < json_obj.length; i++)
+                    {
+                        var v1 = json_obj[i][1].toLowerCase();
+                        var v4 = json_obj[i][4].toLowerCase();
+                        if((v1.includes(course_name)) && (v4.includes(department)))
+                        {
+                            var v0 = json_obj[i][0];
+                            var v1 = json_obj[i][1];
+                            var v2 = json_obj[i][2];
+                            var v3 = json_obj[i][3];
+                            var v4 = json_obj[i][4];
+                            var v5 = json_obj[i][5];
+                            var v6 = json_obj[i][6];
+                            var v7 = json_obj[i][7];
+                            var v8 = json_obj[i][8];
+                            var v9 = json_obj[i][9];
+                            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary);
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            if(course_name === "")
+            {
+                if(department === "select")
+                {
+                    var i;
+                    var v0 = json_obj[i][0].toLowerCase();
+                    for(i = 0; i < json_obj.length; i++)
+                    {
+                        if(v0.includes(course_id))
+                        {
+                            var v0 = json_obj[i][0];
+                            var v1 = json_obj[i][1];
+                            var v2 = json_obj[i][2];
+                            var v3 = json_obj[i][3];
+                            var v4 = json_obj[i][4];
+                            var v5 = json_obj[i][5];
+                            var v6 = json_obj[i][6];
+                            var v7 = json_obj[i][7];
+                            var v8 = json_obj[i][8];
+                            var v9 = json_obj[i][9];
+                            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary);
+                        }
+                    }
+                }
+                else
+                {
+                    var i;
+                    for(i = 0; i < json_obj.length; i++)
+                    {
+                        var v0 = json_obj[i][0].toLowerCase();
+                        var v4 = json_obj[i][4].toLowerCase();
+                        if((v4.includes(department)) && (v0.includes(course_id)))
+                        {
+                            var v0 = json_obj[i][0];
+                            var v1 = json_obj[i][1];
+                            var v2 = json_obj[i][2];
+                            var v3 = json_obj[i][3];
+                            var v4 = json_obj[i][4];
+                            var v5 = json_obj[i][5];
+                            var v6 = json_obj[i][6];
+                            var v7 = json_obj[i][7];
+                            var v8 = json_obj[i][8];
+                            var v9 = json_obj[i][9];
+                            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if(department === "select")
+                {
+                    var i;
+                    for(i = 0; i < json_obj.length; i++)
+                    {
+                        var v0 = json_obj[i][0].toLowerCase();
+                        var v1 = json_obj[i][1].toLowerCase();
+                        if((v1.includes(course_name)) && v0.includes(course_id))
+                        {
+                            var v0 = json_obj[i][0];
+                            var v1 = json_obj[i][1];
+                            var v2 = json_obj[i][2];
+                            var v3 = json_obj[i][3];
+                            var v4 = json_obj[i][4];
+                            var v5 = json_obj[i][5];
+                            var v6 = json_obj[i][6];
+                            var v7 = json_obj[i][7];
+                            var v8 = json_obj[i][8];
+                            var v9 = json_obj[i][9];
+                            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary);
+                        }
+                    }
+                }
+                else
+                {
+                    var i;
+                    for(i = 0; i < json_obj.length; i++)
+                    {
+                        var v0 = json_obj[i][0].toLowerCase();
+                        var v1 = json_obj[i][1].toLowerCase();
+                        var v4 = json_obj[i][4].toLowerCase();
+                        if((v1.includes(course_name)) && (v4.includes(department)) && (v0.includes(course_id)))
+                        {
+                            var v0 = json_obj[i][0];
+                            var v1 = json_obj[i][1];
+                            var v2 = json_obj[i][2];
+                            var v3 = json_obj[i][3];
+                            var v4 = json_obj[i][4];
+                            var v5 = json_obj[i][5];
+                            var v6 = json_obj[i][6];
+                            var v7 = json_obj[i][7];
+                            var v8 = json_obj[i][8];
+                            var v9 = json_obj[i][9];
+                            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     function onloadTable()
     {
         var url = "http://119.23.233.0:5000/all_class"
@@ -208,6 +464,44 @@
         // alert(data.district);
         // alert(json_obj[0][1]);
         // alert(json_obj.length);
+
+        var dictionary = {
+            '1': 'Monday 08:00 - 09:50',
+            '2': 'Monday 10:20 - 12:10',
+            '3': 'Monday 14:00 - 15:50',
+            '4': 'Monday 16:20 - 18:10',
+            '5': 'Monday 19:00 - 20:50',
+
+            '6': 'Tuesday 08:00 - 09:50',
+            '7': 'Tuesday 10:20 - 12:10',
+            '8': 'Tuesday 14:00 - 15:50',
+            '9': 'Tuesday 16:20 - 18:10',
+            '10': 'Tuesday 19:00 - 20:50',
+
+            '11': 'Wednesday 08:00 - 09:50',
+            '12': 'Wednesday 10:20 - 12:10',
+            '13': 'Wednesday 14:00 - 15:50',
+            '14': 'Wednesday 16:20 - 18:10',
+            '15': 'Wednesday 19:00 - 20:50',
+
+            '16': 'Thursday 08:00 - 09:50',
+            '17': 'Thursday 10:20 - 12:10',
+            '18': 'Thursday 14:00 - 15:50',
+            '19': 'Thursday 16:20 - 18:10',
+            '20': 'Thursday 19:00 - 20:50',
+
+            '21': 'Friday 08:00 - 09:50',
+            '22': 'Friday 10:20 - 12:10',
+            '23': 'Friday 14:00 - 15:50',
+            '24': 'Friday 16:20 - 18:10',
+            '25': 'Friday 19:00 - 20:50',
+
+            '26': 'Saturday 08:00 - 09:50',
+            '27': 'Saturday 10:20 - 12:10',
+            '28': 'Saturday 14:00 - 15:50',
+            '29': 'Saturday 16:20 - 18:10',
+            '30': 'Saturday 19:00 - 20:50',
+        };
 
         var i;
         for(i = 0; i < json_obj.length; i++)
@@ -222,20 +516,20 @@
             var v7 = json_obj[i][7];
             var v8 = json_obj[i][8];
             var v9 = json_obj[i][9];
-            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9);
+            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9, dictionary);
         }
     }
 
     function Get(yourUrl)
     {
-      var Httpreq = new XMLHttpRequest(); // a new request
-      Httpreq.open("GET",yourUrl,false);
-      Httpreq.send(null);
-      // window.alert(Httpreq.responseText);
-      return Httpreq.responseText;
+        var Httpreq = new XMLHttpRequest(); // a new request
+        Httpreq.open("GET",yourUrl,false);
+        Httpreq.send(null);
+        // window.alert(Httpreq.responseText);
+        return Httpreq.responseText;
     }
 
-    function addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9)
+    function addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9, dictionary)
     {
         let bodyObj = document.getElementById("tbody_all_courses");
         if(bodyObj === null)
@@ -253,7 +547,15 @@
         newRow.insertCell(2).innerHTML = v2;
         newRow.insertCell(3).innerHTML = v3;
         newRow.insertCell(4).innerHTML = v4;
-        newRow.insertCell(5).innerHTML = v5;
+        var times = v5.split(",");
+        // alert('v5:' + v5);
+        var info = '';
+		var j;
+        for (j = 0; j < times.length; j++){
+            info = info + dictionary[times[j]] + "<br />";
+        }
+		
+        newRow.insertCell(5).innerHTML = info;
         newRow.insertCell(6).innerHTML = v6;
         newRow.insertCell(7).innerHTML = v7;
         newRow.insertCell(8).innerHTML = v8;
@@ -264,6 +566,7 @@
         // alert(last_cell.getAttribute('id').toString());
         bodyObj.rows[0].style.display = "none"; // hide the first row
         // alert("new_row" + newRow.innerHTML);
+        // alert("rowCount:" + rowCount);
     }
 
     function pick_withdraw(content)
@@ -283,7 +586,7 @@
             }
             else
             {
-                alert("Select :" + course_id + "fail: " + result);
+                alert(result);
             }
         }
         else if(content.innerHTML === "Drop")
@@ -293,7 +596,7 @@
             var url = "http://119.23.233.0:5000/" + "withdraw/" + course_id;
             // alert("退课url-----" + url);
             var result = Get(url);
-            
+
             alert("Drop " + course_id + " success!");
             content.innerHTML = "Select";
         }
@@ -302,6 +605,7 @@
             alert('errrrrrrrrrrrrrrrrrrrrrrrrrrrrrror' + content.innerHTML);
         }
     }
+
 </script>
 
 

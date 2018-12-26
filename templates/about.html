@@ -41,7 +41,7 @@
 
 </head>
 
-<body class="style-simple layout-full-width mobile-tb-left no-content-padding header-creative header-open minimalist-header sticky-white subheader-both-center menuo-no-borders footer-copy-center">
+<body class="style-simple layout-full-width mobile-tb-left no-content-padding header-creative header-open minimalist-header sticky-white subheader-both-center menuo-no-borders footer-copy-center" onload="getTips()">
 <div id="Header_creative">
     <a href="#" class="creative-menu-toggle"><i class="icon-menu"></i></a>
     <!--Social info area-->
@@ -71,7 +71,7 @@
                                     <a href="#"><span>About</span></a>
                                 </li>
                                 <li>
-                                    <a href="/" onclick="logOut()"><span>Exit</span></a>
+                                    <a href="logout"><span>Exit</span></a>
                                 </li>
                             </ul>
                         </nav>
@@ -116,7 +116,15 @@
     </div>
 </div>
 
-
+<div>
+    <p>
+        <span style="font-size: 15px; font-family: Bembo; colar: DimGray">Tips</span>
+	</p>
+    <!--<H4 id="tips"><FONT COLOR="DARKCYAN"><CENTER></FONT></H4>-->
+    <p id="tips">
+        <span style="font-size: 10px; font-family: Bembo; colar: DimGray"></span>
+	</p>
+</div>
 
 
 <!-- JS -->
@@ -129,6 +137,7 @@
 <script src="../static/js/scripts.js"></script>
 
 <script>
+
     jQuery(window).load(function () {
         var retina = window.devicePixelRatio > 1 ? true : false;
         if (retina) {
@@ -143,18 +152,15 @@
         }
     });
 
-    function logOut() {
-        var url = 'http://119.23.233.0:5000/logout';
+    function getTips() {
+        var url = "http://119.23.233.0:5000/recommendation";
         var json_obj = JSON.parse(Get(url));
-        if (json_obj['state'] === 1){
-            alert(json_obj['message']);
-        }
-        else{
-            alert(json_obj['message']);
-        }
+        var tips = document.getElementById("tips");
+        tips.innerText = json_obj;
     }
 
-    function Get(yourUrl){
+    function Get(yourUrl)
+    {
         var Httpreq = new XMLHttpRequest(); // a new request
         Httpreq.open("GET",yourUrl,false);
         Httpreq.send(null);

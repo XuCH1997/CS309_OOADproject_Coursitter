@@ -137,7 +137,7 @@
         border: 1px solid black;
     }
 </style>
-<body class="style-simple layout-full-width mobile-tb-left no-content-padding header-creative header-open minimalist-header sticky-white subheader-both-center menuo-no-borders footer-copy-center" onload="onloadTable()">
+<body class="style-simple layout-full-width mobile-tb-left no-content-padding header-creative header-open minimalist-header sticky-white subheader-both-center menuo-no-borders footer-copy-center" onload="onloadTable();onClickGradeQuery();getRecommendCourses();getRecommendDepartments()">
 <div id="Header_creative">
     <a href="#" class="creative-menu-toggle"><i class="icon-menu"></i></a>
     <!--Social info area-->
@@ -166,7 +166,7 @@
                                     <a href="about"><span>About</span></a>
                                 </li>
                                 <li>
-                                    <a href="/" onclick="logOut()"><span>Exit</span></a>
+                                    <a href="logout" ><span>Exit</span></a>
                                 </li>
                             </ul>
                         </nav>
@@ -222,8 +222,6 @@
 </div>
 
 <div id="Course Timetable" class="htabcontent">
-    <H1><FONT COLOR="DARKCYAN"><CENTER>MY TIME TABLE</FONT></H1>
-
     <table border="2" cellspacing="3" align="center" width="80%">
 
         <div id="head_nav">
@@ -338,14 +336,7 @@
 </div>
 
 <div id="Grade Query" class="htabcontent">
-    <div class="vtab" display="inline-block">
-        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq1')" id="defaultOpen">Semester1</button>
-        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq2')">Semester2</button>
-        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq3')">Semester3</button>
-        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq4')">Semester4</button>
-        <button class="tablinks" onclick="onClickVerticalTab(event, 'gq5')">Total</button>
-    </div>
-    <div id="gq1" class="vtabcontent">
+    <div id="gq5">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
             <tr>
                 <th>CourseID</th>
@@ -353,56 +344,14 @@
                 <th>Course credits</th>
                 <th>Grade</th>
             </tr>
-            <tbody id="gq1body">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <tbody id="gq5_tbody" style="display: none;">
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
             </tbody>
-        </table>
-
-    </div>
-
-    <div id="gq2" class="vtabcontent">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
             <tr>
-                <td>CourseID</td>
-                <td>Course</td>
-                <td>Course credits</td>
-                <td>Grade</td>
-            </tr>
-        </table>
-    </div>
-
-    <div id="gq3" class="vtabcontent">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
-            <tr>
-                <td>CourseID</td>
-                <td>Course</td>
-                <td>Course credits</td>
-                <td>Grade</td>
-            </tr>
-        </table>
-    </div>
-
-    <div id="gq4" class="vtabcontent">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
-            <tr>
-                <td>CourseID</td>
-                <td>Course</td>
-                <td>Course credits</td>
-                <td>Grade</td>
-            </tr>
-        </table>
-    </div>
-
-    <div id="gq5" class="vtabcontent">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
-            <tr>
-                <td>CourseID</td>
-                <td>Course</td>
-                <td>Course credits</td>
-                <td>Grade</td>
+                <td colspan="16">No more data!</td>
             </tr>
         </table>
     </div>
@@ -414,13 +363,13 @@
             <td>Department</td>
             <td>Remaining credits</td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>
                 <a href="#">Computer Science
                 </a>
             </td>
             <td>72</td>
-        </tr>
+        </tr> -->
         <!--<tr>-->
         <!--<td>CS305</td>-->
         <!--<td></td>-->
@@ -432,40 +381,58 @@
 
 <div id="Recommend Courses" class="htabcontent">
     <table id="RCT" width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-            <td>CourseID</td>
+	    <tr>
+	        <td>CourseID</td>
             <td>Course</td>
             <td>Probobility</td>
             <td>Teacher</td>
-            <td>Selection</td>
-        </tr>
-        <tr>
-            <td>CS305</td>
-            <td>22222</td>
-            <td>72%</td>
-            <td>3333333</td>
-            <td>
-                <button type="button" onclick="selectCourse()">Select</button>
-            </td>
-        </tr>
-    </table>
+            <td>Operation</td>
+	        <!--     <th class="Nsb_r_list_thb"  scope="col">课程类别</th>
+	            <th class="Nsb_r_list_thb"  scope="col">课程性质</th>
+	            <th class="Nsb_r_list_thb"  scope="col">课程属性</th>-->
+	        <!-- <th class="Nsb_r_list_thb" scope="col">状态</th>
+	         -->
+	    </tr>
+
+	    <tbody id="tbody_RCT" style="display: none;">
+	    <tr>
+	        <td style="">#</td>
+	        <td style="">#</td>
+	        <td style="">#</td>
+	        <td style="">#</td>
+	        <td>
+	            <a href="#" onclick="pick_withdraw_rct(this);">Select</a>
+	        </td>
+	    </tr>
+	    </tbody>
+
+	    <tr>
+	        <td colspan="16">No more data!</td>
+	    </tr>
+
+	</table>
+
+
+
+
+
 </div>
 
 
 <div id="Selected Courses" class="htabcontent">
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="Nsb_r_list Nsb_table">
         <tr>
-            <th class="Nsb_r_list_thb" scope="col">编号</th>
-            <th class="Nsb_r_list_thb" scope="col">名称</th>
-            <th class="Nsb_r_list_thb" scope="col">容量</th>
-            <th class="Nsb_r_list_thb" scope="col">学时</th>
-            <th class="Nsb_r_list_thb" scope="col">院系</th>
-            <th class="Nsb_r_list_thb" scope="col">时间</th>
-            <th class="Nsb_r_list_thb" scope="col">学分</th>
-            <th class="Nsb_r_list_thb" scope="col">已选人数</th>
-            <th class="Nsb_r_list_thb" scope="col">老师</th>
-            <th class="Nsb_r_list_thb" scope="col">地点</th>
-            <th class="Nsb_r_list_thb" scope="col">操作</th>
+            <th class="Nsb_r_list_thb" scope="col">Course ID</th>
+            <th class="Nsb_r_list_thb" scope="col">Course Name</th>
+            <th class="Nsb_r_list_thb" scope="col">Capacity</th>
+            <th class="Nsb_r_list_thb" scope="col">Period/hour</th>
+            <th class="Nsb_r_list_thb" scope="col">Department</th>
+            <th class="Nsb_r_list_thb" scope="col">Time</th>
+            <th class="Nsb_r_list_thb" scope="col">Credit</th>
+            <th class="Nsb_r_list_thb" scope="col">Selected</th>
+            <th class="Nsb_r_list_thb" scope="col">Teacher</th>
+            <th class="Nsb_r_list_thb" scope="col">Location</th>
+            <th class="Nsb_r_list_thb" scope="col">Option</th>
             <!--     <th class="Nsb_r_list_thb"  scope="col">课程类别</th>
                 <th class="Nsb_r_list_thb"  scope="col">课程性质</th>
                 <th class="Nsb_r_list_thb"  scope="col">课程属性</th>-->
@@ -475,27 +442,27 @@
 
         <tbody id="tbody_all_courses" style="display: none;">
         <tr>
-            <td style="">MA301</td>
-            <td style="">实变函数</td>
-            <td style="">100</td>
-            <td style="">48</td>
-            <td style="">数学系</td>
-            <td style="">1,3,5</td>
-            <td style="">3</td>
-            <td style="">48</td>
-            <td style="">buzhidao</td>
-            <td style="">liyuan</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
             <!--     <td style="">理论课（不含实践）</td>
           <td style="">专业核心课</td>
           <td style="">选修</td>-->
             <td>
-                <a href="#" onclick="pick_withdraw(this);">选课</a>
+                <a href="#" onclick="pick_withdraw(this);">Drop</a>
             </td>
         </tr>
         </tbody>
 
         <tr>
-            <td colspan="16">未查询到数据</td>
+            <td colspan="16">No more data!</td>
         </tr>
 
     </table>
@@ -521,19 +488,6 @@
         if(tabid === "Course Timetable"){
             getCourseTable();
         }
-
-        if(tabid === "Recommend Departments"){
-            getRecommendDepartments();
-        }
-
-        if(tabid === "Recommend Courses"){
-            getRecommendCourses();
-        }
-
-        if(tabid === "Grade Query")
-        {
-            onClickGradeQuery("gq1");
-        }
     }
 
     function getCourseTable() {
@@ -552,54 +506,43 @@
     }
 
     function getRecommendDepartments(){
-        var url = 'http://119.23.233.0:5000/major_predict';
+        var url = 'http://119.23.233.0:5000/major_info';
         var json_obj = JSON.parse(Get(url));
         var table = document.getElementById("RDT");
         var i;
         for (i = 0; i < json_obj.length; i++ ) {
-            let newRow = table.insertRow(i);
+            let newRow = table.insertRow(i+1);
             newRow.insertCell(0).innerHTML = json_obj[i][0];
             newRow.insertCell(1).innerHTML = json_obj[i][1];
-            newRow.insertCell(2).innerHTML = json_obj[i][2];
             // newRow.insertCell(3).innerHTML = json_obj[i][3];
             // newRow.insertCell(4).innerHTML =
         }
     }
     function getRecommendCourses() {
-        var url = 'http://119.23.233.0:5000/major_predict';
+        var url = 'http://119.23.233.0:5000/reco_list';
         var json_obj = JSON.parse(Get(url));
-        var table = document.getElementById("RCT");
-        var i;
-        for (i = 0; i < json_obj.length; i++ ) {
-            let newRow = table.insertRow(i);
-            newRow.insertCell(0).innerHTML = json_obj[i][0];
-            newRow.insertCell(1).innerHTML = json_obj[i][1];
-        }
+		
+        v0 = json_obj[0][0];
+        v1 = json_obj[0][1];
+        v2 = json_obj[1];
+        v3 = json_obj[0][2];
+
+        addRCTRow(v0,v1,v2,v3);
     }
 
-    function onClickGradeQuery(tabid)
+    function onClickGradeQuery()
     {
-        var obj = "";
-        obj = JSON.parse(grade_query_1);
-        if(obj.state == 1)
+        var url = "http://119.23.233.0:5000/grade"
+        var json_obj = JSON.parse(Get(url));
+
+        var i;
+        for(i = 0; i < json_obj.length; i++)
         {
-            let bodyObj = document.getElementById("gq1body");
-            if(bodyObj === null)
-            {
-                alert("Body of Table not Exist!");
-                return;
-            }
-
-            for(i in obj.class_name)
-            {
-                let rowCount = bodyObj.rows.length;
-                let newRow = bodyObj.insertRow(rowCount++);
-                newRow.insertCell(0).innerHTML = obj.class_name[i][0];
-                newRow.insertCell(1).innerHTML = obj.class_name[i][1];
-                newRow.insertCell(2).innerHTML = obj.class_name[i][2];
-                newRow.insertCell(3).innerHTML = obj.class_name[i][3];
-            }
-
+            var v0 = json_obj[i][0];
+            var v1 = json_obj[i][1];
+            var v2 = json_obj[i][2];
+            var v3 = json_obj[i][3];
+            addGradeRow(v0,v1,v2,v3);
         }
     }
 
@@ -621,15 +564,52 @@
     {
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen_onload").click();
-        document.getElementById("defaultOpen").click();
 
-        var url = "http://119.23.233.0:5000/all_class"
+        var url = "http://119.23.233.0:5000/selected"
         var json_obj = JSON.parse(Get(url));
         // var info = JSON.stringify(json_obj);
         // var data = eval('(' + info + ')');
         // alert(data.district);
         // alert(json_obj[0][1]);
         // alert(json_obj.length);
+
+        var dictionary = {
+            '1': 'Monday 8:00 - 9:50',
+            '2': 'Monday 10:20 - 12:10',
+            '3': 'Monday 14:00 - 15:50',
+            '4': 'Monday 16:20 - 18:10',
+            '5': 'Monday 19:00 - 20:50',
+
+            '6': 'Tuesday 8:00 - 9:50',
+            '7': 'Tuesday 10:20 - 12:10',
+            '8': 'Tuesday 14:00 - 15:50',
+            '9': 'Tuesday 16:20 - 18:10',
+            '10': 'Tuesday 19:00 - 20:50',
+
+            '11': 'Wednesday 8:00 - 9:50',
+            '12': 'Wednesday 10:20 - 12:10',
+            '13': 'Wednesday 14:00 - 15:50',
+            '14': 'Wednesday 16:20 - 18:10',
+            '15': 'Wednesday 19:00 - 20:50',
+
+            '16': 'Thursday 8:00 - 9:50',
+            '17': 'Thursday 10:20 - 12:10',
+            '18': 'Thursday 14:00 - 15:50',
+            '19': 'Thursday 16:20 - 18:10',
+            '20': 'Thursday 19:00 - 20:50',
+
+            '21': 'Friday 8:00 - 9:50',
+            '22': 'Friday 10:20 - 12:10',
+            '23': 'Friday 14:00 - 15:50',
+            '24': 'Friday 16:20 - 18:10',
+            '25': 'Friday 19:00 - 20:50',
+
+            '26': 'Saturday 8:00 - 9:50',
+            '27': 'Saturday 10:20 - 12:10',
+            '28': 'Saturday 14:00 - 15:50',
+            '29': 'Saturday 16:20 - 18:10',
+            '30': 'Saturday 19:00 - 20:50',
+        };
 
         var i;
         for(i = 0; i < json_obj.length; i++)
@@ -644,20 +624,10 @@
             var v7 = json_obj[i][7];
             var v8 = json_obj[i][8];
             var v9 = json_obj[i][9];
-            addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9);
+            addCourseRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary);
         }
     }
 
-    function logOut() {
-        var url = 'http://119.23.233.0:5000/logout';
-        var json_obj = JSON.parse(Get(url));
-        if (json_obj['state'] === 1){
-            alert(json_obj['message']);
-        }
-        else{
-            alert(json_obj['message']);
-        }
-    }
 
     function Get(yourUrl){
         var Httpreq = new XMLHttpRequest(); // a new request
@@ -671,7 +641,7 @@
     {
         // alert("---------------" + content.innerHTML);
         // alert(content.parentElement.innerHTML + "------------");
-        if(content.innerHTML === "选课")
+        if(content.innerHTML === "Select")
         {
             var table_row = content.parentElement.parentElement;
             var course_id = table_row.cells[0].innerHTML;
@@ -679,15 +649,15 @@
             var result = Get(url);
             if(result === "success")
             {
-                alert("选课 success!");
-                content.innerHTML = "退课";
+                alert("Select " + course_id + " success!");
+                content.innerHTML = "Drop";
             }
             else
             {
-                alert("选课失败:" + result);
+                alert(result);
             }
         }
-        else if(content.innerHTML === "退课")
+        else if(content.innerHTML === "Drop")
         {
             var table_row = content.parentElement.parentElement;
             var course_id = table_row.cells[0].innerHTML;
@@ -695,8 +665,8 @@
             // alert("退课url-----" + url);
             var result = Get(url);
 
-            alert("退课success!");
-            content.innerHTML = "选课";
+            alert("Drop " + course_id + " success!");
+            content.innerHTML = "Select";
         }
         else
         {
@@ -704,7 +674,44 @@
         }
     }
 
-    function addRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9)
+    function pick_withdraw_rct(content)
+    {
+        // alert("---------------" + content.innerHTML);
+        // alert(content.parentElement.innerHTML + "------------");
+        if(content.innerHTML === "Select")
+        {
+            var table_row = content.parentElement.parentElement;
+            var course_id = table_row.cells[0].innerHTML;
+            var url = "http://119.23.233.0:5000/" + "pick/" + course_id;
+            var result = Get(url);
+            if(result === "success")
+            {
+                alert("Select " + course_id + " success!");
+                content.innerHTML = "Drop";
+            }
+            else
+            {
+                alert(result);
+            }
+        }
+        else if(content.innerHTML === "Drop")
+        {
+            var table_row = content.parentElement.parentElement;
+            var course_id = table_row.cells[0].innerHTML;
+            var url = "http://119.23.233.0:5000/" + "withdraw/" + course_id;
+            // alert("退课url-----" + url);
+            var result = Get(url);
+
+            alert("Drop " + course_id + " success!");
+            content.innerHTML = "Select";
+        }
+        else
+        {
+            alert('errrrrrrrrrrrrrrrrrrrrrrrrrrrrrror' + content.innerHTML);
+        }
+    }
+
+    function addCourseRow(v0,v1,v2,v3,v4,v5,v6,v7,v8,v9,dictionary)
     {
         let bodyObj = document.getElementById("tbody_all_courses");
         if(bodyObj === null)
@@ -722,7 +729,13 @@
         newRow.insertCell(2).innerHTML = v2;
         newRow.insertCell(3).innerHTML = v3;
         newRow.insertCell(4).innerHTML = v4;
-        newRow.insertCell(5).innerHTML = v5;
+        var times = v5.split(",");
+        var info = '';
+		var j;
+        for (j = 0; j < times.length; j++){
+            info = info + dictionary[times[j]] + "<br />";
+        }
+        newRow.insertCell(5).innerHTML = info;
         newRow.insertCell(6).innerHTML = v6;
         newRow.insertCell(7).innerHTML = v7;
         newRow.insertCell(8).innerHTML = v8;
@@ -730,6 +743,51 @@
         let last_cell = newRow.insertCell(10);
         last_cell.innerHTML = bodyObj.rows[0].cells[cellCount - 1].innerHTML;
         last_cell.setAttribute('id',newRow.rowIndex);
+        // alert(last_cell.getAttribute('id').toString());
+        bodyObj.rows[0].style.display = "none"; // hide the first row
+        // alert("new_row" + newRow.innerHTML);
+    }
+
+    function addGradeRow(v0,v1,v2,v3)
+    {
+        let bodyObj = document.getElementById("gq5_tbody");
+        if(bodyObj === null)
+        {
+            alert("Body of Table not Exist!");
+            return;
+        }
+        let rowCount = bodyObj.rows.length;
+        bodyObj.style.display = ""; // display the tbody
+        let cellCount = bodyObj.rows[0].cells.length;
+        let newRow = bodyObj.insertRow(rowCount++);
+        newRow.insertCell(0).innerHTML = v0;
+        newRow.insertCell(1).innerHTML = v1;
+        newRow.insertCell(2).innerHTML = v2;
+        newRow.insertCell(3).innerHTML = v3;
+        bodyObj.rows[0].style.display = "none"; // hide the first row
+        // alert("new_row" + newRow.innerHTML);
+    }
+
+    function addRCTRow(v0,v1,v2,v3)
+    {
+        let bodyObj = document.getElementById("tbody_RCT");
+        if(bodyObj === null)
+        {
+            alert("Body of Table not Exist!");
+            return;
+        }
+        let rowCount = bodyObj.rows.length;
+        bodyObj.style.display = ""; // display the tbody
+        let cellCount = bodyObj.rows[0].cells.length;
+        let newRow = bodyObj.insertRow(rowCount++);
+        newRow.setAttribute('id',"rcttr" + rowCount.toString());
+        newRow.insertCell(0).innerHTML = v0;
+        newRow.insertCell(1).innerHTML = v1;
+        newRow.insertCell(2).innerHTML = v2;
+        newRow.insertCell(3).innerHTML = v3;
+        let last_cell = newRow.insertCell(4);
+        last_cell.innerHTML = bodyObj.rows[0].cells[cellCount - 1].innerHTML;
+        last_cell.setAttribute('id',"rct" + newRow.rowIndex);
         // alert(last_cell.getAttribute('id').toString());
         bodyObj.rows[0].style.display = "none"; // hide the first row
         // alert("new_row" + newRow.innerHTML);
