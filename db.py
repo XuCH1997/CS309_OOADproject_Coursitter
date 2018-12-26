@@ -67,6 +67,12 @@ class conn():
         result = self.__execute_sql(sql)
         return result
 
+    def get_grade(self, UID):
+        sql = "SELECT c.CID,c.COURSE_NAME,c.CREDITS,sc.GRADE from STUDENT_COURSE as sc \
+        join COURSE as c ON sc.CID = c.CID WHERE sc.SID = '{}';".format(UID)
+        result = self.__execute_sql(sql)
+        return result
+
     def change_user_password(self, UID, psw):
         sql = "UPDATE `OOADPro`.`STUDENTS` t SET t.`STUDENT_PASSWORD` = '{}' WHERE t.`SID` = '{}';".format(psw, UID)
         result = self.__execute_sql(sql)

@@ -15,13 +15,21 @@ CORS(app)
 def home():
     return render_template('mainpage.html')
 
-
 @app.errorhandler(404)
 @cross_origin()
 def page_not_found(e):
     # note that we set the 404 status explicitly
     return jsonify(404)
 
+@app.route('/grade')
+@cross_origin()
+def grade_query():
+    if 'username' in session:
+        a = conn()
+        res = a.get_grade(session['username'])
+        a.close()
+        return jsonify(res)
+    return redirect(url_for('login_page'))
 
 @app.route('/loginSt/<username>/<password>', methods=['GET', 'POST'])
 @cross_origin()
