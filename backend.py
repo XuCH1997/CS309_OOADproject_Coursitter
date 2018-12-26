@@ -20,7 +20,7 @@ def home():
 @cross_origin()
 def page_not_found(e):
     # note that we set the 404 status explicitly
-    return jsonify(404)
+    return render_template('error.html')
 
 
 @app.route('/grade')
