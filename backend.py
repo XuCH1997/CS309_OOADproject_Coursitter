@@ -51,7 +51,7 @@ def isSession():
 @cross_origin()
 def logout():
     session.pop('username', None)
-    return jsonify({'message': 'logout success'})
+    return redirect(url_for('home'))
 
 
 @app.route('/change_password/<username>/<password_old>/<password_new>')
@@ -100,7 +100,7 @@ def pick_class(CID):
     if 'username' in session:
         UID = session['username']
         a = conn()
-        msg = a.select_course(UID, CID)
+        msg = a.se11lect_course(UID, CID)
 
         a.close()
         return msg
