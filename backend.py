@@ -151,6 +151,13 @@ def withdraw(CID):
     else:
         return redirect(url_for('login_page'))
 
+@app.route('/recommendation')
+def recommendation():
+    if 'username' in session:
+        a = conn()
+        msg = a.show_reco(session['username'])
+        a.close()
+        return jsonify(msg)
 
 @app.route('/login')
 @cross_origin()

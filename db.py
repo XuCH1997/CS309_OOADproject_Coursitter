@@ -1,4 +1,5 @@
 import mysql.connector as mysql
+from random import *
 
 
 class conn():
@@ -24,6 +25,7 @@ class conn():
         try:
             self.cursor.execute(sql)
             result = self.cursor.fetchone()[0]
+            self.cursor.fetchall()
         except:
             result = None
         return result
@@ -79,7 +81,7 @@ class conn():
         self.commit_change()
         return result
 
-    def get_selected(self,UID):
+    def get_selected(self, UID):
         sql = "SELECT c.CID,c.COURSE_NAME,c.COURSE_CAP,c.COURSE_DUR,\
         c.COURSE_MAJOR,c.COURSE_TIME,c.CREDITS,c.SELECTED_NUMBER,\
         c.TEACHER,c.COURSE_LOC,c.COURSE_TERM FROM STUDENT_COURSE as st JOIN COURSE as c\
@@ -164,6 +166,31 @@ class conn():
         else:
             return False
 
+    def r_choose_one_course(self, UID):
+        try:
+            sql = "SELECT sc.CID FROM STUDENT_COURSE as sc WHERE sc.SID = '{}';".format(UID)
+            res = self.__execute_sql(sql)
+            temp = int(random() * len(res))
+            # print(str(res)+res[temp][0])
+            result = res[temp][0]
+        except:
+            result = None
+        return result
+
+    def show_reco(self, UID):
+        CID = str(self.r_choose_one_course(UID))
+        sql1 = "SELECT sc1.CID,count(*) FROM STUDENT_COURSE as sc1 WHERE sc1.SID in (\
+        SELECT sc2.SID FROM STUDENT_COURSE as sc2 WHERE sc2.CID = '{}')and \
+        sc1.CID!= '{}' GROUP BY sc1.CID;".format(CID, CID)
+        res = self.__execute_sql(sql1)
+        #print(CID)
+        sql2 = "SELECT c.SELECTED_NUMBER FROM COURSE as c WHERE c.CID = '{}';".format(CID)
+        total_num = (self.__execute_sql(sql2)[0][0])
+        #print(total_num)
+        msg = "{}% of people who choose {} also choose {}!".format(str(float(total_num)/float(res[0][1])),CID,str(res[0][0]))
+        #print(msg)
+        return msg
+
     def select_course(self, UID, CID, TERM="2018SPRING"):
         code, msg = self.check_pre(UID, CID, TERM)
         if code == 1:
@@ -190,11 +217,13 @@ class conn():
         self.__execute_sql(sql2)
         self.commit_change()
 
+
 # if __name__ == '__main__':
 #     a = conn()
+#     a.show_reco(11510102)
 #     # a.select_course(UID=11510102, CID="CS004")
 #     # a.get_user_password(11510102)
-#     a.check_full(CID='CS004')
+#     # a.check_full(CID='CS004')
 #     # print(a.get_all_classes(11510102))
 #     # a.get_user_password(11510102)
 #     a.close()
