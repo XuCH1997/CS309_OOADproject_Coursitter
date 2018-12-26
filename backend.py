@@ -155,7 +155,10 @@ def withdraw(CID):
 def recommendation():
     if 'username' in session:
         a = conn()
-        msg = a.show_reco(session['username'])
+        try:
+            msg = a.show_reco(session['username'])
+        except:
+            msg = "Oops! It seems no recommendation here."
         a.close()
         return jsonify(msg)
     return redirect(url_for('login_page'))
