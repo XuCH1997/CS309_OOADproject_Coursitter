@@ -126,8 +126,8 @@
 
 <div class='bgimg'>
     <!--<H4 id="tips"><FONT COLOR="DARKCYAN"><CENTER></FONT></H4>-->
-    <p id="tips" style="font-size: 30px; font-family: Optima; position:absolute; left:35%; top:50%">
-	</p>
+    <h4 id="tips" style="font-size: 30px; font-family: Optima; position:absolute; left:35%; top:50%">
+	</h4>
 </div>
 
 
@@ -157,10 +157,15 @@
     });
 
     function getTips() {
-        var url = "http://119.23.233.0:5000/recommendation";
+        var url = "http://119.23.233.0:5000/tips";
         var json_obj = JSON.parse(Get(url));
+		var i
+		var info = "";
+		for (i = 0; i < json_obj.length; i ++){
+			info = info + json_obj[i] + "\n";
+		}
         var tips = document.getElementById("tips");
-        tips.innerText = json_obj;
+        tips.innerText = info;
     }
 
     function Get(yourUrl)

@@ -137,7 +137,7 @@
         border: 1px solid black;
     }
 </style>
-<body class="style-simple layout-full-width mobile-tb-left no-content-padding header-creative header-open minimalist-header sticky-white subheader-both-center menuo-no-borders footer-copy-center" onload="onloadTable();onClickGradeQuery();getRecommendCourses();getRecommendDepartments()">
+<body class="style-simple layout-full-width mobile-tb-left no-content-padding header-creative header-open minimalist-header sticky-white subheader-both-center menuo-no-borders footer-copy-center" onload="onloadTable()">
 <div id="Header_creative">
     <a href="#" class="creative-menu-toggle"><i class="icon-menu"></i></a>
     <!--Social info area-->
@@ -222,7 +222,7 @@
 </div>
 
 <div id="Course Timetable" class="htabcontent">
-    <table border="2" cellspacing="3" align="center" width="80%">
+    <table id="course_timetable" border="2" cellspacing="3" align="center" width="80%">
 
         <div id="head_nav">
 
@@ -337,7 +337,7 @@
 
 <div id="Grade Query" class="htabcontent">
     <div id="gq5">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
+        <table id="grade_query_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="courseTable">
             <tr>
                 <th>CourseID</th>
                 <th>Course</th>
@@ -360,67 +360,56 @@
 <div id="Recommend Departments" class="htabcontent">
     <table id="RDT" width="50%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-            <td>Department</td>
-            <td>Remaining credits</td>
+            <th>Department</th>
+            <th>Remaining credits</th>
         </tr>
-        <!-- <tr>
-            <td>
-                <a href="#">Computer Science
-                </a>
-            </td>
-            <td>72</td>
-        </tr> -->
-        <!--<tr>-->
-        <!--<td>CS305</td>-->
-        <!--<td></td>-->
-        <!--<td>3</td>-->
-        <!--<td>A</td>-->
-        <!--</tr>-->
+        <tbody id="tbody_RDT" style="display: none;">
+        <tr>
+            <td style="">#</td>
+            <td style="">#</td>
+        </tr>
+        </tbody>
     </table>
 </div>
 
 <div id="Recommend Courses" class="htabcontent">
     <table id="RCT" width="100%" border="0" cellspacing="0" cellpadding="0">
-	    <tr>
-	        <td>CourseID</td>
+        <tr>
+            <td>CourseID</td>
             <td>Course</td>
             <td>Probobility</td>
             <td>Teacher</td>
             <td>Operation</td>
-	        <!--     <th class="Nsb_r_list_thb"  scope="col">课程类别</th>
-	            <th class="Nsb_r_list_thb"  scope="col">课程性质</th>
-	            <th class="Nsb_r_list_thb"  scope="col">课程属性</th>-->
-	        <!-- <th class="Nsb_r_list_thb" scope="col">状态</th>
-	         -->
-	    </tr>
+            <!--     <th class="Nsb_r_list_thb"  scope="col">课程类别</th>
+                <th class="Nsb_r_list_thb"  scope="col">课程性质</th>
+                <th class="Nsb_r_list_thb"  scope="col">课程属性</th>-->
+            <!-- <th class="Nsb_r_list_thb" scope="col">状态</th>
+             -->
+        </tr>
 
-	    <tbody id="tbody_RCT" style="display: none;">
-	    <tr>
-	        <td style="">#</td>
-	        <td style="">#</td>
-	        <td style="">#</td>
-	        <td style="">#</td>
-	        <td>
-	            <a href="#" onclick="pick_withdraw_rct(this);">Select</a>
-	        </td>
-	    </tr>
-	    </tbody>
+        <tbody id="tbody_RCT" style="display: none;">
+        <tr>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td style="">#</td>
+            <td>
+                <a href="#" onclick="pick_withdraw_rct(this);">Select</a>
+            </td>
+        </tr>
+        </tbody>
 
-	    <tr>
-	        <td colspan="16">No more data!</td>
-	    </tr>
+        <tr>
+            <td colspan="16">No more data!</td>
+        </tr>
 
-	</table>
-
-
-
-
+    </table>
 
 </div>
 
 
 <div id="Selected Courses" class="htabcontent">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="Nsb_r_list Nsb_table">
+    <table id="selected_course_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="Nsb_r_list Nsb_table">
         <tr>
             <th class="Nsb_r_list_thb" scope="col">Course ID</th>
             <th class="Nsb_r_list_thb" scope="col">Course Name</th>
@@ -432,7 +421,7 @@
             <th class="Nsb_r_list_thb" scope="col">Selected</th>
             <th class="Nsb_r_list_thb" scope="col">Teacher</th>
             <th class="Nsb_r_list_thb" scope="col">Location</th>
-            <th class="Nsb_r_list_thb" scope="col">Option</th>
+            <th class="Nsb_r_list_thb" scope="col">Operation</th>
             <!--     <th class="Nsb_r_list_thb"  scope="col">课程类别</th>
                 <th class="Nsb_r_list_thb"  scope="col">课程性质</th>
                 <th class="Nsb_r_list_thb"  scope="col">课程属性</th>-->
@@ -485,12 +474,38 @@
         document.getElementById(tabid).style.display = "block";
         evt.currentTarget.className += " active";
 
+        if(tabid === "Selected Courses")
+        {
+            onClickRefreshTimetable();
+        }
         if(tabid === "Course Timetable"){
             getCourseTable();
+        }
+        else if(tabid === "Grade Query")
+        {
+            onClickGradeQuery();
+        }
+        else if(tabid === "Recommend Departments")
+        {
+            onClickRecommendDepartment();
+        }
+        else if(tabid === "Recommend Courses")
+        {
+            getRecommendCourses();
         }
     }
 
     function getCourseTable() {
+        var timetable = document.getElementById("course_timetable");
+        var k;
+        for(k = 1; k < 31; k++)
+        {
+            var temp_id = "ct" + k.toString();
+            var temp_cell = document.getElementById(temp_id);
+            temp_cell.innerHTML = "";
+        }
+
+
         var url = 'http://119.23.233.0:5000/schedule';
         var json_obj = JSON.parse(Get(url));
         var i, j, info, temp_id, temp_cell;
@@ -500,28 +515,43 @@
             for (j = 0; j < times.length; j++) {
                 temp_id = "ct" + times[j];
                 temp_cell = document.getElementById(temp_id);
-                temp_cell.innerText = info
+                temp_cell.innerText = info;
             }
         }
     }
 
-    function getRecommendDepartments(){
+    function onClickRecommendDepartment()
+    {
+        var table = document.getElementById("RDT");
+        //or use :  var table = document.all.tableid;
+        // alert(table.rows.length);
+        for(var i = table.rows.length; i > 2; i--)
+        {
+            table.deleteRow(i - 1);
+        }
+
         var url = 'http://119.23.233.0:5000/major_info';
         var json_obj = JSON.parse(Get(url));
-        var table = document.getElementById("RDT");
         var i;
         for (i = 0; i < json_obj.length; i++ ) {
-            let newRow = table.insertRow(i+1);
-            newRow.insertCell(0).innerHTML = json_obj[i][0];
-            newRow.insertCell(1).innerHTML = json_obj[i][1];
-            // newRow.insertCell(3).innerHTML = json_obj[i][3];
-            // newRow.insertCell(4).innerHTML =
+            v0 = json_obj[i][0];
+            v1 = json_obj[i][1];
+            addRDTRow(v0,v1);
         }
     }
+    
     function getRecommendCourses() {
+        var table = document.getElementById("RCT");
+        //or use :  var table = document.all.tableid;
+        // alert(table.rows.length);
+        for(var i = table.rows.length; i > 2; i--)
+        {
+            table.deleteRow(i - 1);
+        }
+
         var url = 'http://119.23.233.0:5000/reco_list';
         var json_obj = JSON.parse(Get(url));
-		
+        
         v0 = json_obj[0][0];
         v1 = json_obj[0][1];
         v2 = json_obj[1];
@@ -532,6 +562,14 @@
 
     function onClickGradeQuery()
     {
+        var table = document.getElementById("grade_query_table");
+        //or use :  var table = document.all.tableid;
+        // alert(table.rows.length);
+        for(var i = table.rows.length; i > 2; i--)
+        {
+            table.deleteRow(i - 1);
+        }
+
         var url = "http://119.23.233.0:5000/grade"
         var json_obj = JSON.parse(Get(url));
 
@@ -564,6 +602,20 @@
     {
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen_onload").click();
+        onClickRefreshTimetable();
+
+    }
+
+    function onClickRefreshTimetable()
+    {
+        // Get the element with id="defaultOpen" and click on it
+        var table = document.getElementById("selected_course_table");
+        //or use :  var table = document.all.tableid;
+        // alert(table.rows.length);
+        for(var i = table.rows.length; i > 2; i--)
+        {
+            table.deleteRow(i - 1);
+        }
 
         var url = "http://119.23.233.0:5000/selected"
         var json_obj = JSON.parse(Get(url));
@@ -731,7 +783,7 @@
         newRow.insertCell(4).innerHTML = v4;
         var times = v5.split(",");
         var info = '';
-		var j;
+        var j;
         for (j = 0; j < times.length; j++){
             info = info + dictionary[times[j]] + "<br />";
         }
@@ -791,6 +843,24 @@
         // alert(last_cell.getAttribute('id').toString());
         bodyObj.rows[0].style.display = "none"; // hide the first row
         // alert("new_row" + newRow.innerHTML);
+    }
+
+    function addRDTRow(v0,v1)
+    {
+        let bodyObj = document.getElementById("tbody_RDT");
+        if(bodyObj === null)
+        {
+            alert("Body of Table not Exist!");
+            return;
+        }
+
+        let rowCount = bodyObj.rows.length;
+        bodyObj.style.display = ""; // display the tbody
+        let cellCount = bodyObj.rows[0].cells.length;
+        let newRow = bodyObj.insertRow(rowCount++);
+        newRow.insertCell(0).innerHTML = v0;
+        newRow.insertCell(1).innerHTML = v1;
+        bodyObj.rows[0].style.display = "none"; // hide the first row
     }
 </script>
 

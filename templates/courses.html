@@ -123,12 +123,16 @@
             <select id="query_department" name="xx0301id">
                 <option value="Select">-----------Select----------</option>
 
-                <option value="Biology">Biology</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Cs">Computer Science</option>
-                <option value="Economics">Economics</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Physics">Physics</option>
+                <option value="BIO">Biology</option>
+                <option value="CH">Chemistry</option>
+                <option value="CLE">CLE</option>
+                <option value="CS">Computer Science</option>
+                <option value="DC">DC</option>
+                <option value="EE">Electronic Engineering</option>
+                <option value="FIN">Finance</option>
+                <option value="MA">Mathematics</option>
+                <option value="OCE">Oceanography</option>
+                <option value="PHY">Physics</option>
             </select>
         </td>
     </tr>
@@ -359,9 +363,9 @@
                 if(department === "select")
                 {
                     var i;
-                    var v0 = json_obj[i][0].toLowerCase();
                     for(i = 0; i < json_obj.length; i++)
                     {
+                        var v0 = json_obj[i][0].toLowerCase();
                         if(v0.includes(course_id))
                         {
                             var v0 = json_obj[i][0];
@@ -411,7 +415,7 @@
                     {
                         var v0 = json_obj[i][0].toLowerCase();
                         var v1 = json_obj[i][1].toLowerCase();
-                        if((v1.includes(course_name)) && v0.includes(course_id))
+                        if((v1.includes(course_name)) && (v0.includes(course_id)))
                         {
                             var v0 = json_obj[i][0];
                             var v1 = json_obj[i][1];
